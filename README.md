@@ -1,5 +1,5 @@
+![logo](https://github.com/pacifastacus/Medical-assistent/blob/master/Client/assistent-80.png "Logo")
 # Medical-assistent
-![alt text](https://github.com/pacifastacus/Medical-assistent/Client/assistent-80.png "Logo")
 Egy orvosi rendelőben működő kliens – szerver alkalmazást kell készíteni.
 Asszisztens Kliens - .Net WPF desktop alkalmazás
   * Az asszisztens irodájában működik
