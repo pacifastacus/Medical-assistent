@@ -5,8 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="400" Width="800" MinWidth="400" MinHeight="200">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="PatientList" 
+                  Margin="10,10,10,63" 
+                  Grid.ColumnSpan="2"
+                  MouseDoubleClick="ViewPatient">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Felvétel időpontja"
+                                    DisplayMemberBinding="{Binding RecordingDate}" 
+                                    Width="200"/>
+                    <GridViewColumn Header="TAJ szám"
+                                    DisplayMemberBinding="{Binding InsuranceNumber}" 
+                                    Width="100"/>
+                    <GridViewColumn Header="Név"
+                                    DisplayMemberBinding="{Binding Name}"
+                                    Width="150"/>
+                    <GridViewColumn Header="Lakcím"
+                                    DisplayMemberBinding="{Binding Address}"/>
+                    <GridViewColumn Header="Panasz"
+                                    DisplayMemberBinding="{Binding Symptoms}"
+                                    Width="310"/>
+                </GridView>
+                
+                
+            </ListView.View>
+        </ListView>
+        <Button x:Name="ButtonAdd" 
+                Content="Új" 
+                Margin="10,0,0,30" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                Height="28" Width="109" 
+                Click="AddPatient"/>
+        <Button x:Name="ButtonMod" 
+                Content="Módosítás..." 
+                Margin="124,0,0,30" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                Width="109" Height="28" 
+                Click="ModifyPatient"/>
+        <Button x:Name="ButtonDelete" 
+                Content="Törlés" 
+                Margin="238,0,0,30" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                Height="28" Width="109" 
+                Click="DeletePatient"/>
+        <Button x:Name="ButtonQuit" 
+                Content="Kilépés" 
+                Margin="0,0,10,30" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Grid.Column="1"
+                Height="28" Width="109" 
+                Click="Quit" />
     </Grid>
 </Window>
