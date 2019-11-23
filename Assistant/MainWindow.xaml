@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assistant"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="405" Width="800">
+    <Grid RenderTransformOrigin="0.567,0.37">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="13*"/>
+        </Grid.ColumnDefinitions>
+        <ListView HorizontalAlignment="Left" Height="316" Margin="10,10,0,0" Grid.Column="1" VerticalAlignment="Top" Width="448">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Felvétel ideje"/>
+                    <GridViewColumn Header="Név"/>
+                    <GridViewColumn Header="TAJ-szám"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox HorizontalAlignment="Left" Height="23" Width="120" Margin="192,36,0,0" Grid.Column="0" 
+                 TextWrapping="Wrap" 
+                 Text="123-123-123" 
+                 VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Width="150" Margin="10,36,0,0" Grid.Column="0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,85,0,0" Grid.Column="0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="302"/>
+        <TextBox HorizontalAlignment="Left" Height="192" Margin="10,134,0,0" Grid.Column="0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="302"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" 
+                VerticalAlignment="Top" Width="75" Height="20" Grid.Row="1"/>
+        <Label Content="Teljes név:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" VerticalAlignment="Top" Height="26" Width="150"/>
+        <Label Content="TAJ-szám:" Height="26" Margin="192,10,0,0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
+        <Label Content="Lakcím:" HorizontalAlignment="Left" Margin="10,59,0,0" Grid.Column="0" VerticalAlignment="Top" Width="302" Height="26"/>
+        <Label Content="Panasz:" HorizontalAlignment="Left" Margin="10,108,0,0" Grid.Column="0" VerticalAlignment="Top" Width="302" Height="26"/>
     </Grid>
 </Window>

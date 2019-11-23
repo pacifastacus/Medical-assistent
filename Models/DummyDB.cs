@@ -22,7 +22,8 @@ namespace Models
                     Address = "1234 BigCity, Unnamed road 13.",
                     InsuranceNumber = 123456789,
                     Symptoms = "Derék fájás",
-                    RecordingDate = DateTime.Parse("2019-06-08, 08:00")
+                    RecordingDate = DateTime.Parse("2019-06-08, 08:00"),
+                    Modified = DateTime.Parse("2019-06-08, 08:00")
                 },
                 new Person
                 {
@@ -30,7 +31,8 @@ namespace Models
                     Address = "4822 Los Angeles, Chasing street 5.",
                     InsuranceNumber = 999999999,
                     Symptoms = "Mindenhol fáj",
-                    RecordingDate = DateTime.Parse("2019-10-08, 08:00")
+                    RecordingDate = DateTime.Parse("2019-10-08, 08:00"),
+                    Modified = DateTime.Parse("2019-10-08, 08:00")
                 },
                 new Person
                 {
@@ -38,7 +40,8 @@ namespace Models
                     Address = "0000 Rome, foobar út 1.",
                     InsuranceNumber = 777666555,
                     Symptoms = "Pöszeség",
-                    RecordingDate = DateTime.Parse("2019-06-08, 08:00")
+                    RecordingDate = DateTime.Parse("2019-06-08, 08:00"),
+                    Modified = DateTime.Parse("2019-06-08, 08:00")
                 }
             };
         }

@@ -4,12 +4,14 @@ namespace Models
 {
     public class Person : IComparable<Person>
     {
-        public Int32 InsuranceNumber { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
+        public Int32 InsuranceNumber { get; internal set; }
+        public string Name { get; internal set; }
+        public string Address { get; internal set; }
         public string Symptoms { get; set; }
-        public DateTime RecordingDate { get; set; }
-
+        public string Diagnosys { get; set; }
+        public DateTime RecordingDate { get; internal set; }
+        public DateTime Modified { get; set; }
+        
         public override string ToString()
         {
             return "Name: " + Name + " Address: " + Address;
