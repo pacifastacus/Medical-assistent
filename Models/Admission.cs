@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServerAPI.Models
+namespace Models
 {
     public class Admission
     {

@@ -14,4 +14,8 @@
     <PackageReference Include="MySql.Data.Entity" Version="6.10.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
+
 </Project>
