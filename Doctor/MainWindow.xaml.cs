@@ -22,7 +22,7 @@ namespace Doctor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _warningSelection = "Válasszon a listából!"
+        private string _warningSelection = "Válasszon a listából!";
         public DummyDB Db { get; }
         ICollectionView listView;
         public MainWindow()

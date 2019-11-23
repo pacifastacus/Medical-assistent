@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,11 +25,16 @@ namespace Doctor
         Person record;
         public ModifyWindow(MainWindow caller, Person record)
         {
+            InputHandler handler = new InputHandler();
             InitializeComponent();
             this.record = record;
             this.caller = caller;
             TextName.Text = this.record.Name;
-            TextInsurance.Text = InsuranceNumToString(this.record.InsuranceNumber);
+            string insuranceNumber;
+            if(!handler.InsuranceNumToString(this.record.InsuranceNumber,out insuranceNumber))
+            {
+                MessageBox.Show("Hibás TAJ-szám!\nVegye fel a kapcsolatot a rendszergazdával!");
+            }
             TextAddress.Text = this.record.Address;
             TextSymptoms.Text = this.record.Symptoms;
         }
@@ -48,22 +54,6 @@ namespace Doctor
         private void DeleteRecord(object sender, RoutedEventArgs e)
         {
 
-        }
-        private int InsuranceNumToInt(string insNum)
-        {
-            string[] members = insNum.Split('-');
-            return int.Parse(string.Concat(members));
-        }
-
-        private string InsuranceNumToString(int insNum)
-        {
-            string str = insNum.ToString();
-            string[] members = new string[3];
-            for (int i = 0; i < 3; i++)
-            {
-                members[i] = str.Substring(i * 3, 3);
-            }
-            return members[0] + "-" + members[1] + "-" + members[2];
         }
     }
 }
