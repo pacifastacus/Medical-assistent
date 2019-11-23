@@ -17,7 +17,16 @@ namespace ServerAPI.Controllers
         public ActionResult<IEnumerable<Record>> Get()
         {
             List<Record> records = new List<Record>();
-            using (var reader = db.SetQuery("select admission.id,patients.insurance_number,patients.first_name,patients.last_name,patients.address,admission.diagnosis,admission.symptomes,admission.last_modified from admission left join patients on patients.id=admission.patient_id order by last_modified asc").ExecuteReader()) 
+            using (var reader = db.SetQuery("select admission.id," +
+                "patients.insurance_number," +
+                "patients.first_name," +
+                "patients.last_name," +
+                "patients.address," +
+                "admission.diagnosis," +
+                "admission.symptomes," +
+                "admission.last_modified " +
+                "from admission left join patients on patients.id=admission.patient_id " +
+                "order by last_modified asc").ExecuteReader()) 
             {
                 while (reader.Read()) 
                 {

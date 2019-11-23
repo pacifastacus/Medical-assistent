@@ -87,7 +87,7 @@ namespace Doctor
         {
             using(var HttpClient = new HttpClient())
             {
-                var result = HttpClient.GetAsync("http://localhost:8080/assistant/").Result;
+                var result = HttpClient.GetAsync("http://localhost:8080/doctor").Result;
 
                 var jsonData = result.Content.ReadAsStringAsync().Result;
                 var db = JsonConvert.DeserializeObject<IEnumerable<Record>>(jsonData);

@@ -1,7 +1,9 @@
 ﻿using Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -49,11 +51,22 @@ namespace Doctor
             record.Symptomes = TextSymptoms.Text;
             record.Diagnosis = TextDiagnose.Text;
             record.Modified = DateTime.Now;
+
+            var json = JsonConvert.SerializeObject(record);
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            using (var httpClient = new HttpClient())
+            {
+                var result = httpClient.PutAsync("http://localhost:8080/doctor/"+record.ID,stringContent).Result;
+            }
             this.Close();
         }
+
         private void DeleteRecord(object sender, RoutedEventArgs e)
         {
-
+            using (var httpClient = new HttpClient())
+            {
+                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/");
+            }
         }
     }
 }
