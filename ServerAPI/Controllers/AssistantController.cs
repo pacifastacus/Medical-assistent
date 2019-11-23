@@ -22,7 +22,7 @@ namespace ServerAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Patient>> Get()
         {
-            List<Patient> patients = new List<Models.Patient>();
+            List<Patient> patients = new List<Patient>();
             using (MySqlDataReader reader = db.SetQuery("select * from patients").ExecuteReader())
             {
                 while (reader.Read())

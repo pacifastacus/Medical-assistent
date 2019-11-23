@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace Doctor
 {
@@ -28,7 +29,7 @@ namespace Doctor
         ICollectionView listView;
         public MainWindow()
         {
-            Db = new DummyDB();
+            //Db = new DummyDB();
             InitializeComponent();
             GetPersons();
             listView = CollectionViewSource.GetDefaultView(PersonsList.ItemsSource);
@@ -68,12 +69,19 @@ namespace Doctor
                 dialog.ShowDialog();
             }
 
-            listView.Refresh();
+            //listView.Refresh();
         }
 
         private void RefreshList(object sender, RoutedEventArgs e)
         {
-            listView.Refresh();
+            GetPersons();
+            try
+            {
+                listView.Refresh();
+            }catch(Exception)
+            {
+                
+            }
         }
         private void GetPersons()
         {
@@ -81,9 +89,10 @@ namespace Doctor
             {
                 var result = HttpClient.GetAsync("http://localhost:8080/assistant/patients").Result;
 
-                var List<>
+                var jsonData = result.Content.ReadAsStringAsync().Result;
+                var db = JsonConvert.DeserializeObject<IEnumerable<Person>>(jsonData);
+                PersonsList.ItemsSource = db;
             }
-            PersonsList.ItemsSource = Db.Persons;
         }
     }
 }
