@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using ServerAPI.DBContext;
-using ServerAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Models;
 
 namespace ServerAPI.Controllers
 {
@@ -22,7 +22,7 @@ namespace ServerAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Patient>> Get()
         {
-            List<Patient> patients = new List<Patient>();
+            List<Patient> patients = new List<Models.Patient>();
             using (MySqlDataReader reader = db.SetQuery("select * from patients").ExecuteReader())
             {
                 while (reader.Read())

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using ServerAPI.DBContext;
-using ServerAPI.Models;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

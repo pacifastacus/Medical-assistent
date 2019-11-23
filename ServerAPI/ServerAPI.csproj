@@ -7,11 +7,20 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.3.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="MySql.Data" Version="8.0.18" />
     <PackageReference Include="MySql.Data.Entity" Version="6.10.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +77,12 @@ namespace Doctor
         }
         private void GetPersons()
         {
+            using(var HttpClient = new HttpClient())
+            {
+                var result = HttpClient.GetAsync("http://localhost:8080/assistant/patients").Result;
+
+                var List<>
+            }
             PersonsList.ItemsSource = Db.Persons;
         }
     }
