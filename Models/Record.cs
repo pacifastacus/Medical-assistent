@@ -4,9 +4,10 @@ namespace Models
 {
     public class Record : IComparable<Record>
     {
-        public Int32 InsuranceNumber { get; internal set; }
-        public string Name { get; internal set; }
-        public string Address { get; internal set; }
+        public int ID { get; set; }
+        public Int32 InsuranceNumber { get;  set; }
+        public string Name { get;  set; }
+        public string Address { get;  set; }
         public string Symptomes { get; set; }
         public string Diagnosis { get; set; }
         public DateTime Modified { get; set; }
@@ -29,7 +30,7 @@ namespace Models
         }
         public bool Equals(Record other)
         {
-            if (this.RecordingDate.Equals(other.RecordingDate) &&
+            if (this.Modified.Equals(other.Modified) &&
                 this.InsuranceNumber.Equals(other.InsuranceNumber) &&
                 this.Name.Equals(other.Name) &&
                 this.Address.Equals(other.Address) &&
