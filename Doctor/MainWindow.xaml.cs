@@ -25,7 +25,7 @@ namespace Doctor
     public partial class MainWindow : Window
     {
         private string _warningSelection = "Válasszon a listából!";
-        public DummyDB Db { get; }
+        //public DummyDB Db { get; }
         ICollectionView listView;
         public MainWindow()
         {
@@ -51,16 +51,16 @@ namespace Doctor
                 return;
             }
 
-            if (!Db.Persons.Remove((Person)PersonsList.SelectedItem))
-            {
-                MessageBox.Show("Törlés sikertelen!");
-            }
+            //if (!Db.Persons.Remove((Person)PersonsList.SelectedItem))
+            //{
+            //    MessageBox.Show("Törlés sikertelen!");
+            //}
             // listView.Refresh();
         }
 
         private void Modify(object sender, RoutedEventArgs e)
         {
-            Person Person = (Person)PersonsList.SelectedItem;
+            Record Person = (Record)PersonsList.SelectedItem;
             if (Person == null)
                 MessageBox.Show(_warningSelection);
             else
@@ -87,10 +87,10 @@ namespace Doctor
         {
             using(var HttpClient = new HttpClient())
             {
-                var result = HttpClient.GetAsync("http://localhost:8080/assistant/patients").Result;
+                var result = HttpClient.GetAsync("http://localhost:8080/assistant/").Result;
 
                 var jsonData = result.Content.ReadAsStringAsync().Result;
-                var db = JsonConvert.DeserializeObject<IEnumerable<Person>>(jsonData);
+                var db = JsonConvert.DeserializeObject<IEnumerable<Record>>(jsonData);
                 PersonsList.ItemsSource = db;
             }
         }

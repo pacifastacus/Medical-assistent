@@ -22,8 +22,8 @@ namespace Doctor
     public partial class ModifyWindow : Window
     {
         MainWindow caller;
-        Person record;
-        public ModifyWindow(MainWindow caller, Person record)
+        Record record;
+        public ModifyWindow(MainWindow caller, Record record)
         {
             InputHandler handler = new InputHandler();
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace Doctor
                 MessageBox.Show("Hibás TAJ-szám!\nVegye fel a kapcsolatot a rendszergazdával!");
             }
             TextAddress.Text = this.record.Address;
-            TextSymptoms.Text = this.record.Symptoms;
+            TextSymptoms.Text = this.record.Symptomes;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -46,8 +46,8 @@ namespace Doctor
 
         private void ModifyRecord(object sender, RoutedEventArgs e)
         {
-            record.Symptoms = TextSymptoms.Text;
-            record.Diagnosys = TextDiagnose.Text;
+            record.Symptomes = TextSymptoms.Text;
+            record.Diagnosis = TextDiagnose.Text;
             record.Modified = DateTime.Now;
             this.Close();
         }

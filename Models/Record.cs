@@ -2,14 +2,13 @@
 
 namespace Models
 {
-    public class Person : IComparable<Person>
+    public class Record : IComparable<Record>
     {
         public Int32 InsuranceNumber { get; internal set; }
         public string Name { get; internal set; }
         public string Address { get; internal set; }
-        public string Symptoms { get; set; }
-        public string Diagnosys { get; set; }
-        public DateTime RecordingDate { get; internal set; }
+        public string Symptomes { get; set; }
+        public string Diagnosis { get; set; }
         public DateTime Modified { get; set; }
         
         public override string ToString()
@@ -19,22 +18,22 @@ namespace Models
 
         public override bool Equals(object obj)
         {
-            if (obj is Person)
+            if (obj is Record)
             {
-                return this.Equals((Person)obj);
+                return this.Equals((Record)obj);
             }
             else
             {
                 return base.Equals(obj);
             }
         }
-        public bool Equals(Person other)
+        public bool Equals(Record other)
         {
             if (this.RecordingDate.Equals(other.RecordingDate) &&
                 this.InsuranceNumber.Equals(other.InsuranceNumber) &&
                 this.Name.Equals(other.Name) &&
                 this.Address.Equals(other.Address) &&
-                this.Symptoms.Equals(other.Symptoms)
+                this.Symptomes.Equals(other.Symptomes)
                 )
             {
                 return true;
@@ -45,7 +44,7 @@ namespace Models
             }
         }
 
-        public int CompareTo(Person other)
+        public int CompareTo(Record other)
         {
             bool isEquals = true;
             foreach (var property in GetType().GetProperties())
@@ -59,7 +58,7 @@ namespace Models
                 }
 
             }
-            return Symptoms.CompareTo(other.Symptoms);
+            return Symptomes.CompareTo(other.Symptomes);
         }
     }
 }
