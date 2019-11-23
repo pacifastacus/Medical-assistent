@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace Doctor
 {
@@ -23,11 +25,11 @@ namespace Doctor
     public partial class MainWindow : Window
     {
         private string _warningSelection = "Válasszon a listából!";
-        public DummyDB Db { get; }
+        //public DummyDB Db { get; }
         ICollectionView listView;
         public MainWindow()
         {
-            Db = new DummyDB();
+            //Db = new DummyDB();
             InitializeComponent();
             GetPersons();
             listView = CollectionViewSource.GetDefaultView(PersonsList.ItemsSource);
@@ -49,16 +51,16 @@ namespace Doctor
                 return;
             }
 
-            if (!Db.Persons.Remove((Person)PersonsList.SelectedItem))
-            {
-                MessageBox.Show("Törlés sikertelen!");
-            }
+            //if (!Db.Persons.Remove((Person)PersonsList.SelectedItem))
+            //{
+            //    MessageBox.Show("Törlés sikertelen!");
+            //}
             // listView.Refresh();
         }
 
         private void Modify(object sender, RoutedEventArgs e)
         {
-            Person Person = (Person)PersonsList.SelectedItem;
+            Record Person = (Record)PersonsList.SelectedItem;
             if (Person == null)
                 MessageBox.Show(_warningSelection);
             else
@@ -67,16 +69,30 @@ namespace Doctor
                 dialog.ShowDialog();
             }
 
-            listView.Refresh();
+            //listView.Refresh();
         }
 
         private void RefreshList(object sender, RoutedEventArgs e)
         {
-            listView.Refresh();
+            GetPersons();
+            try
+            {
+                listView.Refresh();
+            }catch(Exception)
+            {
+                
+            }
         }
         private void GetPersons()
         {
-            PersonsList.ItemsSource = Db.Persons;
+            using(var HttpClient = new HttpClient())
+            {
+                var result = HttpClient.GetAsync("http://localhost:8080/doctor").Result;
+
+                var jsonData = result.Content.ReadAsStringAsync().Result;
+                var db = JsonConvert.DeserializeObject<IEnumerable<Record>>(jsonData);
+                PersonsList.ItemsSource = db;
+            }
         }
     }
 }

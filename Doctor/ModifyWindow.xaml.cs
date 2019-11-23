@@ -1,7 +1,9 @@
 ﻿using Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -22,8 +24,8 @@ namespace Doctor
     public partial class ModifyWindow : Window
     {
         MainWindow caller;
-        Person record;
-        public ModifyWindow(MainWindow caller, Person record)
+        Record record;
+        public ModifyWindow(MainWindow caller, Record record)
         {
             InputHandler handler = new InputHandler();
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace Doctor
                 MessageBox.Show("Hibás TAJ-szám!\nVegye fel a kapcsolatot a rendszergazdával!");
             }
             TextAddress.Text = this.record.Address;
-            TextSymptoms.Text = this.record.Symptoms;
+            TextSymptoms.Text = this.record.Symptomes;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -46,14 +48,25 @@ namespace Doctor
 
         private void ModifyRecord(object sender, RoutedEventArgs e)
         {
-            record.Symptoms = TextSymptoms.Text;
-            record.Diagnosys = TextDiagnose.Text;
+            record.Symptomes = TextSymptoms.Text;
+            record.Diagnosis = TextDiagnose.Text;
             record.Modified = DateTime.Now;
+
+            var json = JsonConvert.SerializeObject(record);
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            using (var httpClient = new HttpClient())
+            {
+                var result = httpClient.PutAsync("http://localhost:8080/doctor/"+record.ID,stringContent).Result;
+            }
             this.Close();
         }
+
         private void DeleteRecord(object sender, RoutedEventArgs e)
         {
-
+            using (var httpClient = new HttpClient())
+            {
+                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/");
+            }
         }
     }
 }

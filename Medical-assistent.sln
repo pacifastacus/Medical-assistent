@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doctor", "Doctor\Doctor.csproj", "{4D9835CC-F396-40FF-95DD-0AC3CD2647CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doctor.Tests", "Doctor.Tests\Doctor.Tests.csproj", "{20A12A1C-EEC8-45B0-9416-5063FBCB4D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doctor.Tests", "Doctor.Tests\Doctor.Tests.csproj", "{20A12A1C-EEC8-45B0-9416-5063FBCB4D01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerAPI", "ServerAPI\ServerAPI.csproj", "{7EB34168-5C1A-4BCC-A897-47F7911D2607}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{20A12A1C-EEC8-45B0-9416-5063FBCB4D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20A12A1C-EEC8-45B0-9416-5063FBCB4D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20A12A1C-EEC8-45B0-9416-5063FBCB4D01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EB34168-5C1A-4BCC-A897-47F7911D2607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB34168-5C1A-4BCC-A897-47F7911D2607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB34168-5C1A-4BCC-A897-47F7911D2607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB34168-5C1A-4BCC-A897-47F7911D2607}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
