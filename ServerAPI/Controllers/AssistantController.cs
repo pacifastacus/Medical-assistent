@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using MySql.Data.MySqlClient;
 using ServerAPI.DBContext;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Models;
 
 namespace ServerAPI.Controllers
 {
@@ -76,7 +77,7 @@ namespace ServerAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] Patient patient, [FromForm] string symptomes,[FromBody] DateTime lastModified)
+        public ActionResult Post([FromForm] Patient patient, [FromForm] string symptomes,[FromForm] DateTime lastModified)
         {
 
             db.SetQuery("INSERT INTO `patients` ( first_name,last_name, insurance_number ,date_of_birth,address) VALUES(@firstName,@lastName,@insuranceNumber,@dateOfBirth,@address);")
