@@ -40,5 +40,27 @@ namespace ServerAPI.Controllers
         }
 
 
+        [HttpPut]
+        public ActionResult Put([FromForm] Record record,[FromForm]int id)         
+        {
+            db.SetQuery("UPDATE admission SET diagnosis= @diagnosis, symptome=@symptome last_midofied=@lastModified WHERE id=@id")
+                .AddParameter(new MySqlParameter("@lastModified", DateTime.Now))
+                .AddParameter(new MySqlParameter("@diagnosis", record.Diagnosis))
+                .AddParameter(new MySqlParameter("@symptomes", record.Symptomes))
+                .AddParameter(new MySqlParameter("@id", id))
+                .ExecuteNonQuery();                    
+                return Ok();
+        }
+
+        [HttpDelete]
+        public ActionResult Delete([FromForm] int id) 
+        {
+            db.SetQuery("delete from admission where id=@id")
+                .AddParameter(new MySqlParameter("@id", id))
+                .ExecuteNonQuery();
+            return Ok();
+        }
+
+
     }
 }
