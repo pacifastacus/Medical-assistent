@@ -1,4 +1,4 @@
-﻿using Client.Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +21,9 @@ namespace Client
     public partial class ViewWindow : Window
     {
         MainWindow caller;
-        Patient record;
+        Person record;
 
-        public ViewWindow(MainWindow caller, Patient record)
+        public ViewWindow(MainWindow caller, Person record)
         {
             InitializeComponent();
             this.record = record;

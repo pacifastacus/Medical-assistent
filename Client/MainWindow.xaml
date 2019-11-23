@@ -11,10 +11,10 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="PatientList" 
+        <ListView x:Name="PersonList" 
                   Margin="10,10,10,63" 
                   Grid.ColumnSpan="2"
-                  MouseDoubleClick="ViewPatient">
+                  MouseDoubleClick="ViewPerson">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Felvétel időpontja"

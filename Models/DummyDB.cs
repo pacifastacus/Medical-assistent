@@ -1,4 +1,4 @@
-﻿using Client.Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,17 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Models
 {
     public class DummyDB
     {
-        public ObservableCollection<Patient> Patients { get; }
+        public ObservableCollection<Person> Persons { get; }
 
         public DummyDB()
         {
-            Patients = new ObservableCollection<Patient>
+            Persons = new ObservableCollection<Person>
             {
-                new Patient
+                new Person
                 {
                     Name = "John Doe",
                     Address = "1234 BigCity, Unnamed road 13.",
@@ -24,7 +24,7 @@ namespace Client
                     Symptoms = "Derék fájás",
                     RecordingDate = DateTime.Parse("2019-06-08, 08:00")
                 },
-                new Patient
+                new Person
                 {
                      Name = "Big Lebowsky",
                     Address = "4822 Los Angeles, Chasing street 5.",
@@ -32,7 +32,7 @@ namespace Client
                     Symptoms = "Mindenhol fáj",
                     RecordingDate = DateTime.Parse("2019-10-08, 08:00")
                 },
-                new Patient
+                new Person
                 {
                     Name = "Biggus Dickus",
                     Address = "0000 Rome, foobar út 1.",

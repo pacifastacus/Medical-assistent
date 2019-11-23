@@ -1,4 +1,4 @@
-﻿using Client.Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace Client
     public partial class ModifyWindow : Window
     {
         MainWindow caller;
-        Patient record;
+        Person record;
         bool newEntry;
         public ModifyWindow(MainWindow caller)
         {
@@ -30,7 +30,7 @@ namespace Client
             newEntry = true;
         }
 
-        public ModifyWindow(MainWindow caller, Patient record)
+        public ModifyWindow(MainWindow caller, Person record)
         {
             InitializeComponent();
             this.record = record;
@@ -54,7 +54,7 @@ namespace Client
             string symptoms = TextSymptoms.Text;
             if (newEntry)
             {
-                caller.Db.Patients.Add(new Patient()
+                caller.Db.Persons.Add(new Person()
                 {
                     Name = name,
                     InsuranceNumber = insNum,

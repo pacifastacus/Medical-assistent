@@ -1,4 +1,4 @@
-﻿using Client.Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,8 +28,8 @@ namespace Client
         {
             Db = new DummyDB();
             InitializeComponent();
-            GetPatients();
-            listView = CollectionViewSource.GetDefaultView(PatientList.ItemsSource);
+            GetPersons();
+            listView = CollectionViewSource.GetDefaultView(PersonList.ItemsSource);
         }
 
         private void Quit(object sender, RoutedEventArgs e)
@@ -37,44 +37,44 @@ namespace Client
             Application.Current.Shutdown();
             //this.Close();
         }
-        private void ViewPatient(object sender, MouseButtonEventArgs e)
+        private void ViewPerson(object sender, MouseButtonEventArgs e)
         {
-            Patient patient = (Patient)PatientList.SelectedItem;
-            Window view = new ViewWindow(this, patient);
+            Person Person = (Person)PersonList.SelectedItem;
+            Window view = new ViewWindow(this, Person);
             view.Show();
         }
-        private void AddPatient(object sender, RoutedEventArgs e)
+        private void AddPerson(object sender, RoutedEventArgs e)
         {
             Window record = new ModifyWindow(this);
             record.ShowDialog();
             //listView.Refresh();
         }
 
-        private void ModifyPatient(object sender, RoutedEventArgs e)
+        private void ModifyPerson(object sender, RoutedEventArgs e)
         {
-            Patient patient = (Patient)PatientList.SelectedItem;
-            if (patient == null)
+            Person Person = (Person)PersonList.SelectedItem;
+            if (Person == null)
                 MessageBox.Show("Válasszon a listából!");
             else
             {
-                Window record= new ModifyWindow(this, patient);
+                Window record= new ModifyWindow(this, Person);
                 record.ShowDialog();
             }
             
             listView.Refresh();
         }
-        private void DeletePatient(object sender, RoutedEventArgs e)
+        private void DeletePerson(object sender, RoutedEventArgs e)
         {
-            if (!Db.Patients.Remove((Patient)PatientList.SelectedItem))
+            if (!Db.Persons.Remove((Person)PersonList.SelectedItem))
             {
                 MessageBox.Show("Nothing selected!");
             }
            // listView.Refresh();
         }
 
-        private void GetPatients()
+        private void GetPersons()
         {
-            PatientList.ItemsSource = Db.Patients;
+            PersonList.ItemsSource = Db.Persons;
         }
     }
 }

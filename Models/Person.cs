@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Client.Models
+namespace Models
 {
-    public class Patient : IComparable<Patient>
+    public class Person : IComparable<Person>
     {
         public Int32 InsuranceNumber { get; set; }
         public string Name { get; set; }
@@ -21,18 +17,18 @@ namespace Client.Models
 
         public override bool Equals(object obj)
         {
-            if (obj is Patient)
+            if (obj is Person)
             {
-                return this.Equals((Patient)obj);
+                return this.Equals((Person)obj);
             }
             else
             {
                 return base.Equals(obj);
             }
         }
-        public bool Equals(Patient other)
+        public bool Equals(Person other)
         {
-            if(this.RecordingDate.Equals(other.RecordingDate) &&
+            if (this.RecordingDate.Equals(other.RecordingDate) &&
                 this.InsuranceNumber.Equals(other.InsuranceNumber) &&
                 this.Name.Equals(other.Name) &&
                 this.Address.Equals(other.Address) &&
@@ -47,10 +43,10 @@ namespace Client.Models
             }
         }
 
-        public int CompareTo(Patient other)
+        public int CompareTo(Person other)
         {
             bool isEquals = true;
-            foreach(var property in GetType().GetProperties())
+            foreach (var property in GetType().GetProperties())
             {
                 var objValue = property.GetValue(this);
                 var otherValue = property.GetValue(other);
@@ -59,7 +55,7 @@ namespace Client.Models
                     isEquals = false;
                     break;
                 }
-                    
+
             }
             return Symptoms.CompareTo(other.Symptoms);
         }
