@@ -61,11 +61,12 @@ namespace Doctor
         private void Modify(object sender, RoutedEventArgs e)
         {
             Record Person = (Record)PersonsList.SelectedItem;
+            int recordIndex = PersonsList.SelectedIndex;
             if (Person == null)
                 MessageBox.Show(_warningSelection);
             else
             {
-                Window dialog = new ModifyWindow(this, Person);
+                Window dialog = new ModifyWindow(Person, recordIndex);
                 dialog.ShowDialog();
             }
 
