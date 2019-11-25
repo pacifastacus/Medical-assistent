@@ -32,7 +32,7 @@
         <Button x:Name="ButtonRefresh" 
                 Content="Frissítés" 
                 HorizontalAlignment="Left" Margin="30,10,0,0" Grid.Row="1" VerticalAlignment="Top" 
-                Width="75" Click="RefreshList" TabIndex="1"/>
+                Width="75" Click="RefreshClicked" TabIndex="1"/>
         <Button x:Name="ButtonModify" 
                 Content="Megtekint" 
                 Margin="126,10,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" 

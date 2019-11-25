@@ -26,6 +26,7 @@ namespace Doctor
     {
         //private ICollectionView listView;
         private System.Windows.Threading.DispatcherTimer _timer;
+        private bool _isRefreshAutomatically;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,8 +35,12 @@ namespace Doctor
             _timer.Interval = TimeSpan.FromSeconds(5);
             _timer.Tick += RefreshList;
             _timer.Start();
+            _isRefreshAutomatically = true;
         }
-
+        private void RefreshList(object sender, EventArgs e)
+        {
+            GetPersons();
+        }
         private void Modify(object sender, RoutedEventArgs e)
         {
             Record Person = (Record)PersonsList.SelectedItem;
@@ -48,23 +53,41 @@ namespace Doctor
                 GetPersons();
             }
         }
-
-        private void RefreshList(object sender, EventArgs e)
+        private void RefreshClicked(object sender, RoutedEventArgs e)
         {
+            //restart the automatic refresh
+            if (!_isRefreshAutomatically)
+            {
+                _timer.Tick += RefreshList;
+                _isRefreshAutomatically = true;
+                ButtonRefresh.BorderThickness = new Thickness(1);
+                ButtonRefresh.BorderBrush = Brushes.Gray;
+            }
             GetPersons();
         }
         private void GetPersons()
         {
             using(var HttpClient = new HttpClient())
             {
-                var result = HttpClient.GetAsync("http://localhost:8080/doctor").Result;
-
-                var jsonData = result.Content.ReadAsStringAsync().Result;
-                var db = JsonConvert.DeserializeObject<IEnumerable<Record>>(jsonData);
-                PersonsList.ItemsSource = db;
+                try
+                {
+                    var result = HttpClient.GetAsync("http://localhost:8080/doctor").Result;
+                    var jsonData = result.Content.ReadAsStringAsync().Result;
+                    var db = JsonConvert.DeserializeObject<IEnumerable<Record>>(jsonData);
+                    PersonsList.ItemsSource = db;
+                }
+                catch (Exception e)
+                {
+                    //Stop automatic refresh
+                    _timer.Tick -= RefreshList;
+                    _isRefreshAutomatically = false;
+                    ButtonRefresh.BorderThickness = new Thickness(3);
+                    ButtonRefresh.BorderBrush = Brushes.Green;
+                    MessageBox.Show("Nem sikerült a kiszolgálót elérni.\n" +
+                        "Az automatikus lista lekérdezés fel lesz függesztve!",
+                        "Kiszolgáló elérhetetlen!");
+                }
             }
         }
-
-        
     }
 }
