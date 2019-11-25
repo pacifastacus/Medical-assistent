@@ -24,7 +24,6 @@ namespace Doctor
     public partial class ModifyWindow : Window
     {
         Record record;
-        int recordIndex;
         public ModifyWindow(Record record)
         {
             InputHandler handler = new InputHandler();
@@ -35,16 +34,11 @@ namespace Doctor
             TextSymptoms.Text = this.record.Symptomes;
             TextDiagnose.Text = this.record.Diagnosis;
             string insuranceNumber;
-            if(!handler.InsuranceNumToString(this.record.InsuranceNumber,out insuranceNumber))
+            if(!handler.InsuranceNumIntToStr(this.record.InsuranceNumber,out insuranceNumber))
             {
                 MessageBox.Show("Hibás TAJ-szám!\nVegye fel a kapcsolatot a rendszergazdával!");
             }
             TextInsurance.Text = insuranceNumber;
-        }
-
-        public ModifyWindow(Record record, int recordIndex) : this(record)
-        {
-            this.recordIndex = recordIndex;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -54,6 +48,14 @@ namespace Doctor
 
         private void ModifyRecord(object sender, RoutedEventArgs e)
         {
+            //If fields are unchanged unnecessary to make HTTP PUT request
+            if(TextSymptoms.Text.Equals(record.Symptomes) &&
+                TextDiagnose.Text.Equals(record.Diagnosis))
+            {
+                this.Close();
+                return;
+            }
+
             record.Symptomes = TextSymptoms.Text;
             record.Diagnosis = TextDiagnose.Text;
             record.Modified = DateTime.Now;
@@ -69,10 +71,19 @@ namespace Doctor
 
         private void DeleteRecord(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult res = MessageBox.Show("Biztos, hogy törölni akarja a bejegyzést?",
+                "Törlés megerősítése",
+                MessageBoxButton.YesNo);
+            if (res == MessageBoxResult.No)
+            {
+                return;
+            }
+
             using (var httpClient = new HttpClient())
             {
                 var result = httpClient.DeleteAsync("http://localhost:8080/doctor/"+record.ID);
             }
+            this.Close();
         }
     }
 }

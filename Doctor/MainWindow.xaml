@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doctor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Várólista" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="362*"/>
@@ -37,9 +37,5 @@
                 Content="Megtekint" 
                 Margin="126,10,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" 
                 Width="96" Click="Modify" TabIndex="2"/>
-        <Button x:Name="ButtonDelete" 
-                Content="Töröl" 
-                Margin="0,10,30,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                Width="75" Click="Delete" TabIndex="3"/>
     </Grid>
 </Window>

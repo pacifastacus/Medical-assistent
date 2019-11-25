@@ -10,14 +10,14 @@ namespace ServerAPI.Controllers
 {
     [ApiController]
     [Route("doctor")]
-    public class DoctorController:ControllerBase
+    public class DoctorController : ControllerBase
     {
         MysqlHelper db = new MysqlHelper();
         [HttpGet]
         public ActionResult<IEnumerable<Record>> Get()
         {
             List<Record> records = new List<Record>();
-            using (var reader = 
+            using (var reader =
                 db.SetQuery("select admission.id," +
                                     "patients.insurance_number," +
                                     "patients.first_name," +
@@ -27,9 +27,9 @@ namespace ServerAPI.Controllers
                                     "admission.symptomes," +
                                     "admission.last_modified " +
                             "from admission left join patients on patients.id=admission.patient_id " +
-                            "order by last_modified asc").ExecuteReader()) 
+                            "order by last_modified asc").ExecuteReader())
             {
-                while (reader.Read()) 
+                while (reader.Read())
                 {
                     var record = new Record()
                     {
@@ -43,15 +43,15 @@ namespace ServerAPI.Controllers
                     };
                     records.Add(record);
                 }
-                
+
 
             }
-                return Ok(records);
+            return Ok(records);
         }
 
 
         [HttpPut]
-        public ActionResult Put([FromBody] Record record)         
+        public ActionResult Put([FromBody] Record record)
         {
             db.SetQuery("UPDATE admission " +
                         "SET diagnosis=@diagnosis, " +
@@ -62,12 +62,12 @@ namespace ServerAPI.Controllers
                 .AddParameter(new MySqlParameter("@diagnosis", record.Diagnosis))
                 .AddParameter(new MySqlParameter("@symptomes", record.Symptomes))
                 .AddParameter(new MySqlParameter("@id", record.ID))
-                .ExecuteNonQuery();                    
-                return Ok();
+                .ExecuteNonQuery();
+            return Ok();
         }
 
-        [HttpDelete]
-        public ActionResult Delete([FromBody] int id) 
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id) 
         {
             db.SetQuery("delete from admission where id=@id")
                 .AddParameter(new MySqlParameter("@id", id))

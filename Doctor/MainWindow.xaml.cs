@@ -24,65 +24,34 @@ namespace Doctor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _warningSelection = "Válasszon a listából!";
-        //public DummyDB Db { get; }
-        ICollectionView listView;
+        //private ICollectionView listView;
+        private System.Windows.Threading.DispatcherTimer _timer;
         public MainWindow()
         {
-            //Db = new DummyDB();
             InitializeComponent();
-            GetPersons();
-            listView = CollectionViewSource.GetDefaultView(PersonsList.ItemsSource);
-        }
-
-        private void Delete(object sender, RoutedEventArgs e)
-        {
-            if(PersonsList.SelectedItem == null)
-            {
-                MessageBox.Show(_warningSelection);
-                return;
-            }
-
-            MessageBoxResult res = MessageBox.Show("Biztos, hogy törölni akarja a bejegyzést?",
-                "Törlés megerősítése",
-                MessageBoxButton.YesNo);
-            if (res == MessageBoxResult.No)
-            {
-                return;
-            }
-
-            //if (!Db.Persons.Remove((Person)PersonsList.SelectedItem))
-            //{
-            //    MessageBox.Show("Törlés sikertelen!");
-            //}
-            // listView.Refresh();
+            //listView = CollectionViewSource.GetDefaultView(PersonsList.ItemsSource);
+            _timer = new System.Windows.Threading.DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(5);
+            _timer.Tick += RefreshList;
+            _timer.Start();
         }
 
         private void Modify(object sender, RoutedEventArgs e)
         {
             Record Person = (Record)PersonsList.SelectedItem;
-            int recordIndex = PersonsList.SelectedIndex;
             if (Person == null)
-                MessageBox.Show(_warningSelection);
+                MessageBox.Show("Előbb válasszon a listából!");
             else
             {
-                Window dialog = new ModifyWindow(Person, recordIndex);
+                Window dialog = new ModifyWindow(Person);
                 dialog.ShowDialog();
+                GetPersons();
             }
-
-            //listView.Refresh();
         }
 
-        private void RefreshList(object sender, RoutedEventArgs e)
+        private void RefreshList(object sender, EventArgs e)
         {
             GetPersons();
-            try
-            {
-                listView.Refresh();
-            }catch(Exception)
-            {
-                
-            }
         }
         private void GetPersons()
         {
@@ -95,5 +64,7 @@ namespace Doctor
                 PersonsList.ItemsSource = db;
             }
         }
+
+        
     }
 }
