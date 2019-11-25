@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doctor"
         mc:Ignorable="d"
-        Title="Várólista" Height="450" Width="800">
+        Title="Várólista" Height="450" Width="800" Icon="assistent-80.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="362*"/>

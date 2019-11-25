@@ -47,14 +47,12 @@ namespace Models
 
         public int CompareTo(Record other)
         {
-            bool isEquals = true;
             foreach (var property in GetType().GetProperties())
             {
                 var objValue = property.GetValue(this);
                 var otherValue = property.GetValue(other);
                 if (!objValue.Equals(otherValue))
                 {
-                    isEquals = false;
                     break;
                 }
 
