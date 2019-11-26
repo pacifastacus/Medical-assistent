@@ -26,7 +26,7 @@ namespace ServerAPI.Controllers
                 "admission.symptomes," +
                 "admission.last_modified " +
                 "from admission left join patients on patients.id=admission.patient_id " +
-                "order by last_modified asc").ExecuteReader()) 
+                "order by registration_date asc").ExecuteReader()) 
             {
                 while (reader.Read()) 
                 {
