@@ -24,5 +24,16 @@ namespace Assistant
         {
             InitializeComponent();
         }
+        private void btnClose(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void btnRegister(object sender, RoutedEventArgs e)
+        {
+            RegisterWindow registerWindow = new RegisterWindow();
+            this.Visibility = Visibility.Hidden;
+            registerWindow.Show();
+        }
     }
 }
