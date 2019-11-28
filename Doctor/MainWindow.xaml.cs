@@ -24,13 +24,11 @@ namespace Doctor
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private ICollectionView listView;
         private System.Windows.Threading.DispatcherTimer _timer;
         private bool _isRefreshAutomatically;
         public MainWindow()
         {
             InitializeComponent();
-            //listView = CollectionViewSource.GetDefaultView(PersonsList.ItemsSource);
             _timer = new System.Windows.Threading.DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(5);
             _timer.Tick += RefreshList;

@@ -21,16 +21,6 @@
                  Height="32"
                  Text="" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="0" Background="#FFABADB3"/>
 
-        <Label x:Name="LabelAddress"
-               Margin="10,68,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"
-               Height="26"
-               Width="240"
-               Content="Lakcím:"/>
-        <TextBox x:Name="TextAddress"
-                 Margin="10,100,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2"
-                 Height="32"
-                 Text="" TextWrapping="Wrap" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="1" Background="#FFABADB3"/>
-
         <Label x:Name="LabelInsurance" 
                Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1"
                Height="26"
@@ -39,8 +29,29 @@
         <TextBox x:Name="TextInsurance"
                  Margin="10,32,10,0" VerticalAlignment="Top" Grid.Column="1"
                  Height="32"
-                 Text="" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="2" Background="#FFABADB3"/>
+                 Text="" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="1" Background="#FFABADB3"/>
 
+        <Label x:Name="LabelAddress"
+               Margin="10,68,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"
+               Height="26"
+               Width="240"
+               Content="Lakcím:"/>
+        <TextBox x:Name="TextAddress"
+                 Margin="10,100,222,0" VerticalAlignment="Top" Grid.ColumnSpan="2"
+                 Height="32"
+                 Text="" TextWrapping="Wrap" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="2" Background="#FFABADB3"/>
+
+        <Label x:Name="LabelDateOfBirth"
+            Margin="0,68,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1"
+            Height="26"
+            Width="191"
+            Content="Születési idő:"/>
+        <TextBox x:Name="TextDateOfBirth"
+            Margin="0,100,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"
+            Height="32"
+            Width="191"
+            Text="" TextWrapping="Wrap" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="3" Background="#FFABADB3"/>
+        
         <Label x:Name="LabelSymptoms"
                Margin="10,132,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0"
                Height="26" 
@@ -49,7 +60,7 @@
         <TextBox x:Name="TextSymptoms" 
                  Margin="10,164,10,61" Grid.Column="0"
                  Tag=""
-                 TextWrapping="Wrap" AcceptsReturn="True" TabIndex="3" Cursor="IBeam" IsUndoEnabled="True"/>
+                 TextWrapping="Wrap" AcceptsReturn="True" TabIndex="4" Cursor="IBeam" IsUndoEnabled="True"/>
 
         <Label x:Name="LabelDiagnosys"
                Margin="10,132,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1"
@@ -59,27 +70,27 @@
         <TextBox x:Name="TextDiagnose" 
                  Margin="10,164,10,61" Grid.Column="1"
                  Tag=""
-                 TextWrapping="Wrap" AcceptsReturn="True" TabIndex="3" Cursor="IBeam" IsUndoEnabled="True"/>
+                 TextWrapping="Wrap" AcceptsReturn="True" TabIndex="5" Cursor="IBeam" IsUndoEnabled="True"/>
 
         <Button x:Name="ButtonOK"
                 Margin="151,0,0,20"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="1" 
                 Width="75"
                 Height="20"
                 Content="OK"
-                Click="ModifyRecord" Tag="ok" TabIndex="4"/>
+                Click="ModifyRecord" Tag="ok" TabIndex="6"/>
 
         <Button x:Name="ButtonCancel"
                 Margin="0,0,90,20"  HorizontalAlignment="Right"  VerticalAlignment="Bottom" Grid.Column="1" 
                 Width="75"
                 Height="20"
                 Content="Mégse"
-                Click="Cancel" Tag="cancel" TabIndex="5"/>
-        
+                Click="Cancel" Tag="cancel" TabIndex="7"/>
+
         <Button x:Name="ButtonDelete"
                 Margin="0,0,10,20" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                 Width="75"
                 Height="20"
                 Content="Törlés"
-                Click="DeleteRecord" Tag="delete" TabIndex="6" Grid.Column="1"/>
+                Click="DeleteRecord" Tag="delete" TabIndex="8" Grid.Column="1"/>
     </Grid>
 </Window>

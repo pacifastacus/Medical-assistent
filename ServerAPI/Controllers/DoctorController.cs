@@ -22,10 +22,11 @@ namespace ServerAPI.Controllers
                                     "patients.insurance_number," +
                                     "patients.first_name," +
                                     "patients.last_name," +
+                                    "patients.date_of_birth," +
                                     "patients.address," +
                                     "admission.diagnosis," +
                                     "admission.symptomes," +
-                                    "admission.last_modified, " +
+                                    "admission.last_modified," +
                                     "admission.registration_date " +
                             "from admission left join patients on patients.id=admission.patient_id " +
                             "order by registration_date asc").ExecuteReader())
@@ -41,6 +42,7 @@ namespace ServerAPI.Controllers
                         Modified = reader.GetDateTime(reader.GetOrdinal("last_modified")),
                         RegistrationDate = reader.GetDateTime(reader.GetOrdinal("registration_date")),
                         Name = reader.GetString(reader.GetOrdinal("first_name")) + " " + reader.GetString(reader.GetOrdinal("last_name")),
+                        DateOfBirth = reader.GetDateTime(reader.GetOrdinal("date_of_birth")),
                         Symptomes = reader.GetString(reader.GetOrdinal("symptomes"))
                     };
                     records.Add(record);

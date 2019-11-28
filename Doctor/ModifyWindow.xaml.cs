@@ -32,6 +32,7 @@ namespace Doctor
             TextName.Text = this.record.Name;
             TextAddress.Text = this.record.Address;
             TextSymptoms.Text = this.record.Symptomes;
+            TextDateOfBirth.Text = this.record.DateOfBirth.ToString("yyyy. MM. dd.");
             TextDiagnose.Text = this.record.Diagnosis;
             string insuranceNumber;
             if(!handler.InsuranceNumIntToStr(this.record.InsuranceNumber,out insuranceNumber))

@@ -7,6 +7,7 @@ namespace Models
         public int ID { get; set; }
         public Int32 InsuranceNumber { get;  set; }
         public string Name { get;  set; }
+        public DateTime DateOfBirth { get; set; }
         public string Address { get;  set; }
         public string Symptomes { get; set; }
         public string Diagnosis { get; set; }
