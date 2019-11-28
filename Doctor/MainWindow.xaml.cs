@@ -39,8 +39,16 @@ namespace Doctor
         {
             GetPersons();
         }
-        private void Modify(object sender, RoutedEventArgs e)
+        private void Modify(object sender, EventArgs e)
         {
+            if (e is KeyEventArgs)
+            {
+               var keyEvent = e as KeyEventArgs;
+                if (!keyEvent.Key.Equals(Key.Enter))
+                {
+                    return;
+                }
+            }
             Record Person = (Record)PersonsList.SelectedItem;
             if (Person == null)
                 MessageBox.Show("Előbb válasszon a listából!");

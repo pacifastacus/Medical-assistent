@@ -86,5 +86,13 @@ namespace Doctor
             }
             this.Close();
         }
+
+        private void SelectAll(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+
+            if (textBox != null && e.KeyboardDevice.IsKeyDown(Key.Tab))
+                textBox.SelectAll();
+        }
     }
 }

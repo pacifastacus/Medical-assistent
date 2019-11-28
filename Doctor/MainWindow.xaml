@@ -11,7 +11,7 @@
             <RowDefinition Height="362*"/>
             <RowDefinition Height="57*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="PersonsList" Margin="10,10,10,0" MouseDoubleClick="Modify" TabIndex="0">
+        <ListView x:Name="PersonsList" Margin="10,10,10,0" MouseDoubleClick="Modify" TabIndex="0" KeyDown="Modify">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="TAJ-szám"
