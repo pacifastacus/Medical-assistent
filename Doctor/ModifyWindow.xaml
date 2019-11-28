@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doctor"
         mc:Ignorable="d"
-        Title="ModifyWindow" Height="450" Width="800">
+        Title="Beutaló lap" Height="450" Width="800" Icon="assistent-80.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -19,7 +19,7 @@
         <TextBox x:Name="TextName" 
                  Margin="10,32,10,0" VerticalAlignment="Top" Grid.Column="0"
                  Height="32"
-                 Text="" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="0"/>
+                 Text="" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="0" Background="#FFABADB3"/>
 
         <Label x:Name="LabelAddress"
                Margin="10,68,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"
@@ -29,7 +29,7 @@
         <TextBox x:Name="TextAddress"
                  Margin="10,100,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2"
                  Height="32"
-                 Text="" TextWrapping="Wrap" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="1"/>
+                 Text="" TextWrapping="Wrap" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="1" Background="#FFABADB3"/>
 
         <Label x:Name="LabelInsurance" 
                Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1"
@@ -39,7 +39,7 @@
         <TextBox x:Name="TextInsurance"
                  Margin="10,32,10,0" VerticalAlignment="Top" Grid.Column="1"
                  Height="32"
-                 Text="" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="2"/>
+                 Text="" FontSize="18" IsReadOnly="True" Cursor="No" TabIndex="2" Background="#FFABADB3"/>
 
         <Label x:Name="LabelSymptoms"
                Margin="10,132,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0"

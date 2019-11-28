@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doctor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Várólista" Height="450" Width="800" Icon="assistent-80.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="362*"/>
@@ -14,15 +14,15 @@
         <ListView x:Name="PersonsList" Margin="10,10,10,0" MouseDoubleClick="Modify" TabIndex="0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Felvétel ideje"
-                                    DisplayMemberBinding="{Binding RecordingDate}"
-                                    Width="200"/>
-                    <GridViewColumn Header="Név"
-                                    DisplayMemberBinding="{Binding Name}" 
-                                    Width="200"/>
                     <GridViewColumn Header="TAJ-szám"
                                     DisplayMemberBinding="{Binding InsuranceNumber}" 
                                     Width="120"/>
+                    <GridViewColumn Header="Név"
+                                    DisplayMemberBinding="{Binding Name}" 
+                                    Width="200"/>
+                    <GridViewColumn Header="Felvétel ideje"
+                                    DisplayMemberBinding="{Binding RegistrationDate}"
+                                    Width="200"/>
                     <GridViewColumn Header="utolsó módsítás dátuma"
                                     DisplayMemberBinding="{Binding Modified}" 
                                     Width="200"/>
@@ -32,14 +32,10 @@
         <Button x:Name="ButtonRefresh" 
                 Content="Frissítés" 
                 HorizontalAlignment="Left" Margin="30,10,0,0" Grid.Row="1" VerticalAlignment="Top" 
-                Width="75" Click="RefreshList" TabIndex="1"/>
+                Width="75" Click="RefreshClicked" TabIndex="1"/>
         <Button x:Name="ButtonModify" 
                 Content="Megtekint" 
                 Margin="126,10,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" 
                 Width="96" Click="Modify" TabIndex="2"/>
-        <Button x:Name="ButtonDelete" 
-                Content="Töröl" 
-                Margin="0,10,30,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                Width="75" Click="Delete" TabIndex="3"/>
     </Grid>
 </Window>

@@ -23,22 +23,22 @@ namespace Doctor
     /// </summary>
     public partial class ModifyWindow : Window
     {
-        MainWindow caller;
         Record record;
-        public ModifyWindow(MainWindow caller, Record record)
+        public ModifyWindow(Record record)
         {
             InputHandler handler = new InputHandler();
             InitializeComponent();
             this.record = record;
-            this.caller = caller;
             TextName.Text = this.record.Name;
+            TextAddress.Text = this.record.Address;
+            TextSymptoms.Text = this.record.Symptomes;
+            TextDiagnose.Text = this.record.Diagnosis;
             string insuranceNumber;
-            if(!handler.InsuranceNumToString(this.record.InsuranceNumber,out insuranceNumber))
+            if(!handler.InsuranceNumIntToStr(this.record.InsuranceNumber,out insuranceNumber))
             {
                 MessageBox.Show("Hibás TAJ-szám!\nVegye fel a kapcsolatot a rendszergazdával!");
             }
-            TextAddress.Text = this.record.Address;
-            TextSymptoms.Text = this.record.Symptomes;
+            TextInsurance.Text = insuranceNumber;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -48,6 +48,14 @@ namespace Doctor
 
         private void ModifyRecord(object sender, RoutedEventArgs e)
         {
+            //If fields are unchanged unnecessary to make HTTP PUT request
+            if(TextSymptoms.Text.Equals(record.Symptomes) &&
+                TextDiagnose.Text.Equals(record.Diagnosis))
+            {
+                this.Close();
+                return;
+            }
+
             record.Symptomes = TextSymptoms.Text;
             record.Diagnosis = TextDiagnose.Text;
             record.Modified = DateTime.Now;
@@ -56,17 +64,26 @@ namespace Doctor
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             using (var httpClient = new HttpClient())
             {
-                var result = httpClient.PutAsync("http://localhost:8080/doctor/"+record.ID,stringContent).Result;
+                var result = httpClient.PutAsync("http://localhost:8080/doctor/",stringContent).Result;
             }
             this.Close();
         }
 
         private void DeleteRecord(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult res = MessageBox.Show("Biztos, hogy törölni akarja a bejegyzést?",
+                "Törlés megerősítése",
+                MessageBoxButton.YesNo);
+            if (res == MessageBoxResult.No)
+            {
+                return;
+            }
+
             using (var httpClient = new HttpClient())
             {
-                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/");
+                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/"+record.ID);
             }
+            this.Close();
         }
     }
 }

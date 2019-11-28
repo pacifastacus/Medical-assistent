@@ -24,74 +24,69 @@ namespace Doctor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _warningSelection = "Válasszon a listából!";
-        //public DummyDB Db { get; }
-        ICollectionView listView;
+        //private ICollectionView listView;
+        private System.Windows.Threading.DispatcherTimer _timer;
+        private bool _isRefreshAutomatically;
         public MainWindow()
         {
-            //Db = new DummyDB();
             InitializeComponent();
-            GetPersons();
-            listView = CollectionViewSource.GetDefaultView(PersonsList.ItemsSource);
+            //listView = CollectionViewSource.GetDefaultView(PersonsList.ItemsSource);
+            _timer = new System.Windows.Threading.DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(5);
+            _timer.Tick += RefreshList;
+            _timer.Start();
+            _isRefreshAutomatically = true;
         }
-
-        private void Delete(object sender, RoutedEventArgs e)
+        private void RefreshList(object sender, EventArgs e)
         {
-            if(PersonsList.SelectedItem == null)
-            {
-                MessageBox.Show(_warningSelection);
-                return;
-            }
-
-            MessageBoxResult res = MessageBox.Show("Biztos, hogy törölni akarja a bejegyzést?",
-                "Törlés megerősítése",
-                MessageBoxButton.YesNo);
-            if (res == MessageBoxResult.No)
-            {
-                return;
-            }
-
-            //if (!Db.Persons.Remove((Person)PersonsList.SelectedItem))
-            //{
-            //    MessageBox.Show("Törlés sikertelen!");
-            //}
-            // listView.Refresh();
+            GetPersons();
         }
-
         private void Modify(object sender, RoutedEventArgs e)
         {
             Record Person = (Record)PersonsList.SelectedItem;
             if (Person == null)
-                MessageBox.Show(_warningSelection);
+                MessageBox.Show("Előbb válasszon a listából!");
             else
             {
-                Window dialog = new ModifyWindow(this, Person);
+                Window dialog = new ModifyWindow(Person);
                 dialog.ShowDialog();
+                GetPersons();
             }
-
-            //listView.Refresh();
         }
-
-        private void RefreshList(object sender, RoutedEventArgs e)
+        private void RefreshClicked(object sender, RoutedEventArgs e)
         {
-            GetPersons();
-            try
+            //restart the automatic refresh
+            if (!_isRefreshAutomatically)
             {
-                listView.Refresh();
-            }catch(Exception)
-            {
-                
+                _timer.Tick += RefreshList;
+                _isRefreshAutomatically = true;
+                ButtonRefresh.BorderThickness = new Thickness(1);
+                ButtonRefresh.BorderBrush = Brushes.Gray;
             }
+            GetPersons();
         }
         private void GetPersons()
         {
             using(var HttpClient = new HttpClient())
             {
-                var result = HttpClient.GetAsync("http://localhost:8080/doctor").Result;
-
-                var jsonData = result.Content.ReadAsStringAsync().Result;
-                var db = JsonConvert.DeserializeObject<IEnumerable<Record>>(jsonData);
-                PersonsList.ItemsSource = db;
+                try
+                {
+                    var result = HttpClient.GetAsync("http://localhost:8080/doctor").Result;
+                    var jsonData = result.Content.ReadAsStringAsync().Result;
+                    var db = JsonConvert.DeserializeObject<IEnumerable<Record>>(jsonData);
+                    PersonsList.ItemsSource = db;
+                }
+                catch (Exception e)
+                {
+                    //Stop automatic refresh
+                    _timer.Tick -= RefreshList;
+                    _isRefreshAutomatically = false;
+                    ButtonRefresh.BorderThickness = new Thickness(3);
+                    ButtonRefresh.BorderBrush = Brushes.Green;
+                    MessageBox.Show("Nem sikerült a kiszolgálót elérni.\n" +
+                        "Az automatikus lista lekérdezés fel lesz függesztve!",
+                        "Kiszolgáló elérhetetlen!");
+                }
             }
         }
     }
