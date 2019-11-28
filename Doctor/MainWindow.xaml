@@ -14,15 +14,15 @@
         <ListView x:Name="PersonsList" Margin="10,10,10,0" MouseDoubleClick="Modify" TabIndex="0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Felvétel ideje"
-                                    DisplayMemberBinding="{Binding RecordingDate}"
-                                    Width="200"/>
-                    <GridViewColumn Header="Név"
-                                    DisplayMemberBinding="{Binding Name}" 
-                                    Width="200"/>
                     <GridViewColumn Header="TAJ-szám"
                                     DisplayMemberBinding="{Binding InsuranceNumber}" 
                                     Width="120"/>
+                    <GridViewColumn Header="Név"
+                                    DisplayMemberBinding="{Binding Name}" 
+                                    Width="200"/>
+                    <GridViewColumn Header="Felvétel ideje"
+                                    DisplayMemberBinding="{Binding RegistrationDate}"
+                                    Width="200"/>
                     <GridViewColumn Header="utolsó módsítás dátuma"
                                     DisplayMemberBinding="{Binding Modified}" 
                                     Width="200"/>

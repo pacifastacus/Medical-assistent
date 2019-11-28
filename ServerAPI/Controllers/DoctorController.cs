@@ -25,7 +25,8 @@ namespace ServerAPI.Controllers
                                     "patients.address," +
                                     "admission.diagnosis," +
                                     "admission.symptomes," +
-                                    "admission.last_modified " +
+                                    "admission.last_modified, " +
+                                    "admission.registration_date " +
                             "from admission left join patients on patients.id=admission.patient_id " +
                             "order by registration_date asc").ExecuteReader())
             {
@@ -38,6 +39,7 @@ namespace ServerAPI.Controllers
                         Diagnosis = reader.GetString(reader.GetOrdinal("diagnosis")),
                         InsuranceNumber = reader.GetInt32(reader.GetOrdinal("insurance_number")),
                         Modified = reader.GetDateTime(reader.GetOrdinal("last_modified")),
+                        RegistrationDate = reader.GetDateTime(reader.GetOrdinal("registration_date")),
                         Name = reader.GetString(reader.GetOrdinal("first_name")) + " " + reader.GetString(reader.GetOrdinal("last_name")),
                         Symptomes = reader.GetString(reader.GetOrdinal("symptomes"))
                     };
