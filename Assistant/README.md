@@ -1,0 +1,1 @@
+# Asszisztens kliens alkalmazás
