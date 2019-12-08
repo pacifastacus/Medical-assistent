@@ -40,8 +40,8 @@
         <DatePicker x:Name="DatePickerBirth" Margin="10,165,10,0" VerticalAlignment="Top" FirstDayOfWeek="Monday" IsTodayHighlighted="False"/>
 
         <Button x:Name="ButtonRegisterPatient" Content="Register new patient" HorizontalAlignment="Left" Height="33" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="124" Click="RegisterPatient_Click"/>
-        <Button x:Name="ButtonClose" Content="Close" Height="33" Margin="0,0,10,10" VerticalAlignment="Bottom" Click="ButtonClose_Click" Grid.Column="2" HorizontalAlignment="Right" Width="113"/>
         <Button x:Name="ButtonRefresh" Content="Refresh" Grid.Column="2" HorizontalAlignment="Left" Margin="10,0,0,10" Width="100" Height="33" VerticalAlignment="Bottom" Click="ButtonRefresh_Click"/>
         <Button x:Name="ButtonAdmission" Content="Admit exiting patient" Grid.Column="1" HorizontalAlignment="Right" Height="33" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="124" Click="ButtonAdmission_Click"/>
+        <Button x:Name="ButtonDelete" Content="Delete Patient" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="105" Grid.Column="2" Height="33" Click="ButtonDelete_Click"/>
     </Grid>
 </Window>
