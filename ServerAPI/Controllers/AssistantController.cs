@@ -75,16 +75,12 @@ namespace ServerAPI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Post([FromForm] JObject objData)
+        public ActionResult Post([FromForm] Tuple<Patient,Admission> admission)
         {
-            dynamic JsonData = objData;
-            JObject patientJson = JsonData.patient;
-            JObject symptomesJson = JsonData.symptomes;
-            JObject lastModifiedJson = JsonData.lastModified;
 
-            Patient patient = patientJson.ToObject<Patient>();
-            string symptomes = symptomesJson.ToObject<string>();
-            DateTime lastModified = symptomesJson.ToObject<DateTime>();
+
+            Patient patient = admission.Item1;
+     
 
             db.SetQuery("INSERT INTO `patients` ( first_name,last_name, insurance_number ,date_of_birth,address) VALUES(@firstName,@lastName,@insuranceNumber,@dateOfBirth,@address);")
                 .AddParameter(new MySqlParameter("@firstname", patient.FirstName))
@@ -103,8 +99,24 @@ namespace ServerAPI.Controllers
             }
             db.SetQuery("insert into admission (patient_id,symptomes,last_modified) values (@patientid,@symptomes,@lastmodified)")
                 .AddParameter(new MySqlParameter("@patientid", id))
-                .AddParameter(new MySqlParameter("@symptomes", symptomes))
-                .AddParameter(new MySqlParameter("@lastmodified", lastModified))
+                .AddParameter(new MySqlParameter("@symptomes", admission.Item2.Symptomes))
+                .AddParameter(new MySqlParameter("@lastmodified", DateTime.Now))
+                .ExecuteNonQuery();
+            return Ok();
+        }
+
+        [HttpPost]
+        public ActionResult Post([FromForm] Admission admission)
+        {
+
+
+           
+
+
+            db.SetQuery("insert into admission (patient_id,symptomes,last_modified) values (@patientid,@symptomes,@lastmodified)")
+                .AddParameter(new MySqlParameter("@patientid", admission.PatientID))
+                .AddParameter(new MySqlParameter("@symptomes", admission.Symptomes))
+                .AddParameter(new MySqlParameter("@lastmodified", DateTime.Now))
                 .ExecuteNonQuery();
             return Ok();
         }
