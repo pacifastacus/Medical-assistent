@@ -17,7 +17,7 @@
                 <GridView>
                     <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="120"/>
                     <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="120"/>
-                    <GridViewColumn Header="Insurance number" DisplayMemberBinding="{Binding InsuranceNumber}" Width="120"/>
+                    <GridViewColumn Header="Insurance number" DisplayMemberBinding="{Binding InsuranceNumber, StringFormat={}{0:000-000-000}}" Width="120"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -31,7 +31,7 @@
         <TextBox x:Name="TextAddress" Height="23" Margin="10,103,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
         <Label Content="Insurance Number" Margin="10,134,10,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <TextBox x:Name="TextInsuranceNumber" Height="23" Margin="10,165,10,0" TextWrapping="Wrap" Text="123123123" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox x:Name="TextInsuranceNumber" Height="23" Margin="10,165,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Column="1"/>
 
         <Label Content="Symptoms" Margin="10,193,10,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextSymptoms" Margin="10,224,10,48" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
