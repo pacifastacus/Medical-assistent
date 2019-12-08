@@ -24,11 +24,11 @@ namespace Assistant
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Patient> patients;
-        private Patient patientToRegister;
+        private Patient patient;
         public MainWindow()
         {
             InitializeComponent();
+            RefreshList();
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -37,23 +37,49 @@ namespace Assistant
         }
         private void RegisterPatient_Click(object sender, RoutedEventArgs e)
         {
-            if(new Patient
-                {
-                    FirstName = TextFirstName.Text,
-                    LastName = TextLastName.Text,
-                    dateOfBirth = DatePickerBirth.SelectedDate,
-                    Address = TextAddress.Text,
-                    InsuranceNumber = int.Parse(TextInsuranceNumber.Text)
-            }.Equals(patientToRegister))
+            RefreshList();
+            patient = new Patient
             {
-                MessageBox.Show("Nothing changed!");
-                return;
+                FirstName = TextFirstName.Text,
+                LastName = TextLastName.Text,
+                dateOfBirth = DatePickerBirth.SelectedDate,
+                Address = TextAddress.Text,
+                InsuranceNumber = int.Parse(TextInsuranceNumber.Text),
+                ID = -1
+            };
+            var admission = new Admission
+            {
+                Symptomes = TextSymptoms.Text,
+                TimeOfAdmission = DateTime.Now,
+                Diagnosis = "",
+                PatientID = -1
+            };
+            //Tuple<Patient, Admission> data = new Tuple<Patient, Admission>(patient, admission);
+            ViewModel data = new ViewModel
+            {
+                Patient = patient,
+                Admission = admission
+            };
+            var json = JsonConvert.SerializeObject(data);
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = new JObject();
+            //json.Add("patient", JToken.FromObject(patientToRegister));
+            //json.Add("syptomes", TextSymptoms.Text);
+            //json.Add("lastModified",DateTime.Now);
+            //var stringContent = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
+            using (var HttpClient = new HttpClient())
+            {
+                var result = HttpClient.PostAsync("http://localhost:8080/assistant/", stringContent);
+                if (result.Result.IsSuccessStatusCode)
+                    MessageBox.Show("Done!\n" + result.Result);
+                else
+                    MessageBox.Show("Error!\n" + result.Result);
             }
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Patient patient = (Patient) PatientsList.SelectedItem;
-            this.patientToRegister = patient;
+            this.patient = patient;
             TextFirstName.Text = patient.FirstName;
             TextLastName.Text = patient.LastName;
             DatePickerBirth.SelectedDate = patient.dateOfBirth;
@@ -63,6 +89,11 @@ namespace Assistant
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
+            RefreshList();
+        }
+
+        private void RefreshList()
+        {
             using (var HttpClient = new HttpClient())
             {
                 var result = HttpClient.GetAsync("http://localhost:8080/assistant").Result;
@@ -71,37 +102,30 @@ namespace Assistant
                 PatientsList.ItemsSource = patients;
             }
         }
-
         private void ButtonAdmission_Click(object sender, RoutedEventArgs e)
         {
-            if(patientToRegister is null)
+            if(patient is null)
             {
-                patientToRegister = new Patient
-                {
-                    ID = -1,
-                    FirstName = TextFirstName.Text,
-                    LastName = TextLastName.Text,
-                    dateOfBirth = DatePickerBirth.SelectedDate,
-                    Address = TextAddress.Text,
-                    InsuranceNumber = int.Parse(TextInsuranceNumber.Text)
-                };
+                MessageBox.Show("Choose patient!");
+                return;
             }
-            //TODO
-            //var json = JsonConvert.SerializeObject(new
-            //{
-            //    patient = patientToRegister,
-            //    symptomes = TextSymptoms.Text,
-            //    lastModified = DateTime.Now
-            //});
-            //var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var json = new JObject();
-            json.Add("patient", JToken.FromObject(patientToRegister));
-            json.Add("syptomes", TextSymptoms.Text);
-            json.Add("lastModified",DateTime.Now);
-            var stringContent = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
+            var admission = new Admission
+            {
+                Symptomes = TextSymptoms.Text,
+                TimeOfAdmission = DateTime.Now,
+                Diagnosis = "None",
+                PatientID = patient.ID
+            };
+            var json = JsonConvert.SerializeObject(admission);
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = new JObject();
+            //json.Add("patient", JToken.FromObject(patientToRegister));
+            //json.Add("syptomes", TextSymptoms.Text);
+            //json.Add("lastModified",DateTime.Now);
+            //var stringContent = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
             using (var HttpClient = new HttpClient())
             {
-                var result = HttpClient.PostAsync("http://localhost:8080/assistant/", stringContent);
+                var result = HttpClient.PostAsync("http://localhost:8080/assistant/"+patient.ID, stringContent);
                 MessageBox.Show("Done!");
             }
         }
