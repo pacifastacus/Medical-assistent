@@ -12,12 +12,7 @@ namespace ServerAPI.Controllers
     [Route("assistant")]
     public class AssistantController : ControllerBase
     {
-
-
-
         private MysqlHelper db = new MysqlHelper();
-
-
 
         [HttpGet]
         public ActionResult<IEnumerable<Patient>> Get()
