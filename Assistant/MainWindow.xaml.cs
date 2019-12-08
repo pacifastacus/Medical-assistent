@@ -54,7 +54,6 @@ namespace Assistant
                 Diagnosis = "",
                 PatientID = -1
             };
-            //Tuple<Patient, Admission> data = new Tuple<Patient, Admission>(patient, admission);
             ViewModel data = new ViewModel
             {
                 Patient = patient,
@@ -62,16 +61,11 @@ namespace Assistant
             };
             var json = JsonConvert.SerializeObject(data);
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            //var json = new JObject();
-            //json.Add("patient", JToken.FromObject(patientToRegister));
-            //json.Add("syptomes", TextSymptoms.Text);
-            //json.Add("lastModified",DateTime.Now);
-            //var stringContent = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
             using (var HttpClient = new HttpClient())
             {
                 var result = HttpClient.PostAsync("http://localhost:8080/assistant/", stringContent);
                 if (result.Result.IsSuccessStatusCode)
-                    MessageBox.Show("Done!\n" + result.Result);
+                    MessageBox.Show("Done!\n");
                 else
                     MessageBox.Show("Error!\n" + result.Result);
             }
@@ -113,20 +107,18 @@ namespace Assistant
             {
                 Symptomes = TextSymptoms.Text,
                 TimeOfAdmission = DateTime.Now,
-                Diagnosis = "None",
+                Diagnosis = "",
                 PatientID = patient.ID
             };
             var json = JsonConvert.SerializeObject(admission);
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            //var json = new JObject();
-            //json.Add("patient", JToken.FromObject(patientToRegister));
-            //json.Add("syptomes", TextSymptoms.Text);
-            //json.Add("lastModified",DateTime.Now);
-            //var stringContent = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
             using (var HttpClient = new HttpClient())
             {
                 var result = HttpClient.PostAsync("http://localhost:8080/assistant/"+patient.ID, stringContent);
-                MessageBox.Show("Done!");
+                if (result.Result.IsSuccessStatusCode)
+                    MessageBox.Show("Done!\n");
+                else
+                    MessageBox.Show("Error!\n" + result.Result);
             }
         }
     }
