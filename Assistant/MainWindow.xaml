@@ -17,7 +17,7 @@
                 <GridView>
                     <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="120"/>
                     <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="120"/>
-                    <GridViewColumn Header="Insurance number" DisplayMemberBinding="{Binding InsuranceNumber, StringFormat={}{0:###-###-###}}" Width="120"/>
+                    <GridViewColumn Header="Insurance number" DisplayMemberBinding="{Binding InsuranceNumber, StringFormat={}{0:000-000-000}}" Width="120"/>
                 </GridView>
             </ListView.View>
         </ListView>
