@@ -12,12 +12,7 @@ namespace ServerAPI.Controllers
     [Route("assistant")]
     public class AssistantController : ControllerBase
     {
-
-
-
         private MysqlHelper db = new MysqlHelper();
-
-
 
         [HttpGet]
         public ActionResult<IEnumerable<Patient>> Get()
@@ -43,6 +38,22 @@ namespace ServerAPI.Controllers
             return Ok(patients);
         }
 
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id) {
+            using (MySqlDataReader reader = db.SetQuery("select * from admission where patient_id=@id").AddParameter(new MySqlParameter("@id", id)).ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    return BadRequest();
+                }               
+            }
+
+            db.SetQuery("delete from patient where id=@id").AddParameter(new MySqlParameter("@id", id));
+
+
+            return Ok();
+        }
 
 
         [HttpGet("{id:int}")]
