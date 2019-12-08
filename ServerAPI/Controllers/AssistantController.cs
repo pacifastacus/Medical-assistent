@@ -49,8 +49,7 @@ namespace ServerAPI.Controllers
                 }               
             }
 
-            db.SetQuery("delete from patients where id=@id").AddParameter(new MySqlParameter("@id", id));
-
+            db.SetQuery("delete from patients where id=@id").AddParameter(new MySqlParameter("@id", id)).ExecuteNonQuery();
             return Ok();
         }
 
