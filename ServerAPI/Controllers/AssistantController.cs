@@ -43,13 +43,14 @@ namespace ServerAPI.Controllers
         public ActionResult Delete(int id) {
             using (MySqlDataReader reader = db.SetQuery("select * from admission where patient_id=@id").AddParameter(new MySqlParameter("@id", id)).ExecuteReader())
             {
+
                 if (reader.HasRows)
                 {
                     return BadRequest();
                 }               
             }
 
-            db.SetQuery("delete from patient where id=@id").AddParameter(new MySqlParameter("@id", id));
+            db.SetQuery("delete from patients where id=@id").AddParameter(new MySqlParameter("@id", id)).ExecuteNonQuery();
 
 
             return Ok();
