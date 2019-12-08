@@ -66,6 +66,10 @@ namespace Doctor
             using (var httpClient = new HttpClient())
             {
                 var result = httpClient.PutAsync("http://localhost:8080/doctor/",stringContent).Result;
+                if (!result.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("A bejegyzés módosítása sikertelen!\nHibakód:" + result.ReasonPhrase, "Hiba!");
+                }
             }
             this.Close();
         }
