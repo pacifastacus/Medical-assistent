@@ -44,6 +44,22 @@ namespace ServerAPI.Controllers
         }
 
 
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id) {
+            using (MySqlDataReader reader = db.SetQuery("select * from admission where patient_id=@id").AddParameter(new MySqlParameter("@id", id)).ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    return BadRequest();
+                }               
+            }
+
+            db.SetQuery("delete from patient where id=@id").AddParameter(new MySqlParameter("@id", id));
+
+
+            return Ok();
+        }
+
 
         [HttpGet("{id:int}")]
         public ActionResult<Patient> Get(int id)

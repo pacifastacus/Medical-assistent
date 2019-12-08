@@ -17,7 +17,8 @@ namespace ServerAPI.DBContext
         }
 
         public MysqlHelper SetQuery(string query) 
-        {            
+        {
+            parameters = new List<MySqlParameter>();
             this.query = query;
             return this;        
         }
