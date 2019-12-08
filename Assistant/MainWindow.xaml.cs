@@ -141,7 +141,10 @@ namespace Assistant
             using (var httpClient = new HttpClient())
             {
                 var result = httpClient.DeleteAsync("http://localhost:8080/assistant/" + patient.ID).Result;
-                MessageBox.Show(result.ToString());
+                if (!result.IsSuccessStatusCode)
+                    MessageBox.Show("Deletion failed!\n"+result.StatusCode);
+                else
+                    RefreshList();
             }
         }
     }
