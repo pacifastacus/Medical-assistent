@@ -78,7 +78,7 @@ namespace Assistant
             TextLastName.Text = patient.LastName;
             DatePickerBirth.SelectedDate = patient.dateOfBirth;
             TextAddress.Text = patient.Address;
-            TextInsuranceNumber.Text = patient.InsuranceNumber.ToString();  //TODO format Insurance number
+            TextInsuranceNumber.Text = UserInputControll.InsuranceNumToString(patient.InsuranceNumber);  //TODO format Insurance number
         }
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
