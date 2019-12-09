@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Doctor
 {
@@ -32,10 +28,14 @@ namespace Doctor
         public bool InsuranceNumIntToStr(int insNum, out string str)
         {
             str = insNum.ToString();
-            if (str.Length != 9)
+            if (str.Length > 9)
             {
-                str = "Erroneous Number";
+                str = "Erroneous number";
                 return false;
+            }
+            while (str.Length < 9)
+            {
+                str = str.PadLeft(str.Length + 1, '0');
             }
             string[] members = new string[3];
             for (int i = 0; i < 3; i++)

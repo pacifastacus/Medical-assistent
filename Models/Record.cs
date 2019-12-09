@@ -5,15 +5,15 @@ namespace Models
     public class Record : IComparable<Record>
     {
         public int ID { get; set; }
-        public Int32 InsuranceNumber { get;  set; }
-        public string Name { get;  set; }
+        public Int32 InsuranceNumber { get; set; }
+        public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string Address { get;  set; }
+        public string Address { get; set; }
         public string Symptomes { get; set; }
         public string Diagnosis { get; set; }
         public DateTime RegistrationDate { get; set; }
         public DateTime Modified { get; set; }
-        
+
         public override string ToString()
         {
             return "Name: " + Name + " Address: " + Address;

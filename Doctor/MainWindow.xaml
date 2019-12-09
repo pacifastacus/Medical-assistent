@@ -15,7 +15,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="TAJ-szám"
-                                    DisplayMemberBinding="{Binding InsuranceNumber}" 
+                                    DisplayMemberBinding="{Binding InsuranceNumber, StringFormat={}{0:000-000-000}}" 
                                     Width="120"/>
                     <GridViewColumn Header="Név"
                                     DisplayMemberBinding="{Binding Name}" 
