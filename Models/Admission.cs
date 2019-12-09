@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Models
 {
@@ -10,7 +8,7 @@ namespace Models
         public int PatientID { get; set; }
         public DateTime TimeOfAdmission { get; set; }
         public string Symptomes { get; set; }
-        public string Diagnosis{get;set;}
+        public string Diagnosis { get; set; }
 
     }
 }

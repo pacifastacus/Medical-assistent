@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace Assistant
 {
     public class UserInputControlTest
     {
         [Theory]
-        [InlineData("123-123-123",123123123,true)]
+        [InlineData("123-123-123", 123123123, true)]
         [InlineData("123123123", 123123123, true)]
         [InlineData("000-123-123", 000123123, true)]
         [InlineData("000123123", 000123123, true)]
@@ -38,13 +33,13 @@ namespace Assistant
         }
 
         [Theory]
-        [InlineData("Albert",true)]
+        [InlineData("Albert", true)]
         [InlineData(" Albert", false)]
         [InlineData("Albert ", false)]
         [InlineData(" Albert ", false)]
         [InlineData("albert", false)]
         [InlineData("ALbert", false)]
-        [InlineData("Ödön",true)]
+        [InlineData("Ödön", true)]
         [InlineData("ödön", false)]
         [InlineData("ÖdÖn", false)]
         [InlineData("ödÖn", false)]

@@ -1,21 +1,11 @@
 ﻿using Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Assistant
 {
@@ -33,7 +23,7 @@ namespace Assistant
         private void RegisterPatient_Click(object sender, RoutedEventArgs e)
         {
             int? insuranceNumber;
-            if(!UserInputControl.InsuranceNumToInt(TextInsuranceNumber.Text, out insuranceNumber))
+            if (!UserInputControl.InsuranceNumToInt(TextInsuranceNumber.Text, out insuranceNumber))
             {
                 MessageBox.Show("TAJ-szám helytelen!");
                 return;
@@ -42,11 +32,13 @@ namespace Assistant
             if (!UserInputControl.CheckName(TextLastName.Text))
             {
                 MessageBox.Show("Vezetéknév hibásan lett kitöltve!");
+                return;
             }
             TextFirstName.Text = TextFirstName.Text.Trim();
             if (!UserInputControl.CheckName(TextFirstName.Text))
             {
                 MessageBox.Show("Keresztnév hibásan lett kitöltve!");
+                return;
             }
 
             patient = new Patient
@@ -97,7 +89,7 @@ namespace Assistant
                 TextInsuranceNumber.Clear();
             }
             else
-            { 
+            {
                 TextFirstName.Text = patient.FirstName;
                 TextLastName.Text = patient.LastName;
                 DatePickerBirth.SelectedDate = patient.dateOfBirth;
@@ -116,15 +108,20 @@ namespace Assistant
         {
             using (var HttpClient = new HttpClient())
             {
-                var result = HttpClient.GetAsync("http://localhost:8080/assistant").Result;
-                var jsonData = result.Content.ReadAsStringAsync().Result;
-                var patients = JsonConvert.DeserializeObject<IEnumerable<Patient>>(jsonData);
-                PatientsList.ItemsSource = patients;
+                try
+                {
+                    var result = HttpClient.GetAsync("http://localhost:8080/assistant").Result;
+                    var jsonData = result.Content.ReadAsStringAsync().Result;
+                    var patients = JsonConvert.DeserializeObject<IEnumerable<Patient>>(jsonData);
+                    PatientsList.ItemsSource = patients;
+                }
+                catch (Exception)
+                {  }
             }
         }
         private void ButtonAdmission_Click(object sender, RoutedEventArgs e)
         {
-            if(patient is null)
+            if (patient is null)
             {
                 MessageBox.Show("Válasszon beteget a listából!");
                 return;
@@ -140,7 +137,7 @@ namespace Assistant
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             using (var HttpClient = new HttpClient())
             {
-                var result = HttpClient.PostAsync("http://localhost:8080/assistant/"+patient.ID, stringContent);
+                var result = HttpClient.PostAsync("http://localhost:8080/assistant/" + patient.ID, stringContent);
                 if (result.Result.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Kész!\n");
@@ -170,7 +167,7 @@ namespace Assistant
             {
                 var result = httpClient.DeleteAsync("http://localhost:8080/assistant/" + patient.ID).Result;
                 if (!result.IsSuccessStatusCode)
-                    MessageBox.Show("Törlés sikertelen!\n"+result.StatusCode);
+                    MessageBox.Show("Törlés sikertelen!\n" + result.StatusCode);
                 else
                     RefreshList();
             }

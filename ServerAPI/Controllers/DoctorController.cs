@@ -4,7 +4,6 @@ using MySql.Data.MySqlClient;
 using ServerAPI.DBContext;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ServerAPI.Controllers
 {
@@ -71,7 +70,7 @@ namespace ServerAPI.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id) 
+        public ActionResult Delete(int id)
         {
             db.SetQuery("delete from admission where id=@id")
                 .AddParameter(new MySqlParameter("@id", id))

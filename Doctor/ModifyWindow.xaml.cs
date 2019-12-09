@@ -1,20 +1,10 @@
 ﻿using Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Doctor
 {
@@ -35,7 +25,7 @@ namespace Doctor
             TextDateOfBirth.Text = this.record.DateOfBirth.ToString("yyyy. MM. dd.");
             TextDiagnose.Text = this.record.Diagnosis;
             string insuranceNumber;
-            if(!handler.InsuranceNumIntToStr(this.record.InsuranceNumber,out insuranceNumber))
+            if (!handler.InsuranceNumIntToStr(this.record.InsuranceNumber, out insuranceNumber))
             {
                 MessageBox.Show("Hibás TAJ-szám!\nVegye fel a kapcsolatot a rendszergazdával!");
             }
@@ -50,7 +40,7 @@ namespace Doctor
         private void ModifyRecord(object sender, RoutedEventArgs e)
         {
             //If fields are unchanged unnecessary to make HTTP PUT request
-            if(TextSymptoms.Text.Equals(record.Symptomes) &&
+            if (TextSymptoms.Text.Equals(record.Symptomes) &&
                 TextDiagnose.Text.Equals(record.Diagnosis))
             {
                 this.Close();
@@ -65,7 +55,7 @@ namespace Doctor
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             using (var httpClient = new HttpClient())
             {
-                var result = httpClient.PutAsync("http://localhost:8080/doctor/",stringContent).Result;
+                var result = httpClient.PutAsync("http://localhost:8080/doctor/", stringContent).Result;
                 if (!result.IsSuccessStatusCode)
                 {
                     MessageBox.Show("A bejegyzés módosítása sikertelen!\nHibakód:" + result.ReasonPhrase, "Hiba!");
@@ -86,7 +76,7 @@ namespace Doctor
 
             using (var httpClient = new HttpClient())
             {
-                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/"+record.ID).Result;
+                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/" + record.ID).Result;
 
             }
             this.Close();

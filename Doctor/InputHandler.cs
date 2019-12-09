@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Doctor
 {
@@ -32,7 +28,7 @@ namespace Doctor
         public bool InsuranceNumIntToStr(int insNum, out string str)
         {
             str = insNum.ToString();
-            if(str.Length > 9)
+            if (str.Length > 9)
             {
                 str = "Erroneous number";
                 return false;

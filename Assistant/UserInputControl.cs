@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Assistant
 {
@@ -38,12 +33,12 @@ namespace Assistant
 
         public static string InsuranceNumToString(int? insNum)
         {
-            if(insNum is null)
+            if (insNum is null)
             {
                 return InsuranceNumberMissing;
             }
             string str = insNum.ToString();
-            while(str.Length < 9)
+            while (str.Length < 9)
             {
                 str = str.PadLeft(str.Length + 1, '0');
             }
@@ -57,7 +52,7 @@ namespace Assistant
 
         public static bool CheckName(string name)
         {
-            return Regex.IsMatch(name, "^[A-ZÓÚÖÜŐŰ][a-zóúöüőű']*(-[A-ZÓÚÖÜŐŰ][a-zóúöüőű']*)*$");
+            return Regex.IsMatch(name, "^[A-ZÁÉÍÓÚÖÜŐŰ][a-záéíóúöüőű']*(-[A-ZÁÉÍÓÚÖÜŐŰ][a-záéíóúöüőű']*)*$");
         }
     }
 }

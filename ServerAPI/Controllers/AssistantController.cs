@@ -4,8 +4,6 @@ using MySql.Data.MySqlClient;
 using ServerAPI.DBContext;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json.Linq;
 namespace ServerAPI.Controllers
 {
     [ApiController]
@@ -40,14 +38,15 @@ namespace ServerAPI.Controllers
 
 
         [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id) {
+        public ActionResult Delete(int id)
+        {
             using (MySqlDataReader reader = db.SetQuery("select * from admission where patient_id=@id").AddParameter(new MySqlParameter("@id", id)).ExecuteReader())
             {
 
                 if (reader.HasRows)
                 {
                     return BadRequest();
-                }               
+                }
             }
 
             db.SetQuery("delete from patients where id=@id").AddParameter(new MySqlParameter("@id", id)).ExecuteNonQuery();
@@ -98,7 +97,7 @@ namespace ServerAPI.Controllers
                     return BadRequest();
                 }
             }
-     
+
 
             db.SetQuery("INSERT INTO `patients` ( first_name,last_name, insurance_number ,date_of_birth,address) VALUES(@firstName,@lastName,@insuranceNumber,@dateOfBirth,@address);")
                 .AddParameter(new MySqlParameter("@firstname", patient.FirstName))
@@ -125,11 +124,11 @@ namespace ServerAPI.Controllers
 
         [HttpPost("{id:int}")]
         public ActionResult Post([FromBody] Admission admission)
-        { 
+        {
             db.SetQuery("insert into admission (patient_id,symptomes,last_modified,diagnosis) values (@patientid,@symptomes,@lastmodified,@diagnosis)")
                 .AddParameter(new MySqlParameter("@patientid", admission.PatientID))
                 .AddParameter(new MySqlParameter("@symptomes", admission.Symptomes))
-                .AddParameter(new MySqlParameter("@diagnosis",admission.Diagnosis))
+                .AddParameter(new MySqlParameter("@diagnosis", admission.Diagnosis))
                 .AddParameter(new MySqlParameter("@lastmodified", DateTime.Now))
                 .ExecuteNonQuery();
             return Ok();
