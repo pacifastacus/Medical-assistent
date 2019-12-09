@@ -116,7 +116,7 @@ namespace Assistant
                     PatientsList.ItemsSource = patients;
                 }
                 catch (Exception)
-                {  }
+                { }
             }
         }
         private void ButtonAdmission_Click(object sender, RoutedEventArgs e)
