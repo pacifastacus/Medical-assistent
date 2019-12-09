@@ -93,6 +93,13 @@ namespace ServerAPI.Controllers
 
             Patient patient = data.Patient;
             Admission admission = data.Admission;
+            using (MySqlDataReader reader = db.SetQuery("select * from patients where insurance_number=@insuranceNumber").AddParameter(new MySqlParameter("@insuranceNumber", patient.InsuranceNumber)).ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    return BadRequest();
+                }
+            }
      
 
             db.SetQuery("INSERT INTO `patients` ( first_name,last_name, insurance_number ,date_of_birth,address) VALUES(@firstName,@lastName,@insuranceNumber,@dateOfBirth,@address);")
