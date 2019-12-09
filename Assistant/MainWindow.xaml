@@ -21,27 +21,27 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="First Name" Margin="10,10,10,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextFirstName" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="Vezetéknév" Margin="10,10,10,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextLastName" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <Label Content="Last Name" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <TextBox x:Name="TextLastName" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Keresztnév" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox x:Name="TextFirstName" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
 
-        <Label Content="Address" Margin="10,72,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Lakcím" Margin="10,72,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBox x:Name="TextAddress" Height="23" Margin="10,103,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
-        <Label Content="Insurance Number" Margin="10,134,10,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="TAJ-szám" Margin="10,134,10,0" VerticalAlignment="Top" Grid.Column="1"/>
         <TextBox x:Name="TextInsuranceNumber" Height="23" Margin="10,165,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Column="1"/>
 
-        <Label Content="Symptoms" Margin="10,193,10,0" VerticalAlignment="Top"/>
+        <Label Content="Panasz" Margin="10,193,10,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextSymptoms" Margin="10,224,10,48" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
 
-        <Label Content="Date of birth" Margin="10,134,10,0" VerticalAlignment="Top"/>
+        <Label Content="Születési idő" Margin="10,134,10,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="DatePickerBirth" Margin="10,165,10,0" VerticalAlignment="Top" FirstDayOfWeek="Monday" IsTodayHighlighted="False"/>
 
-        <Button x:Name="ButtonRegisterPatient" Content="Register new patient" HorizontalAlignment="Left" Height="33" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="124" Click="RegisterPatient_Click"/>
-        <Button x:Name="ButtonRefresh" Content="Refresh" Grid.Column="2" HorizontalAlignment="Left" Margin="10,0,0,10" Width="100" Height="33" VerticalAlignment="Bottom" Click="ButtonRefresh_Click"/>
-        <Button x:Name="ButtonAdmission" Content="Admit exiting patient" Grid.Column="1" HorizontalAlignment="Right" Height="33" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="124" Click="ButtonAdmission_Click"/>
-        <Button x:Name="ButtonDelete" Content="Delete Patient" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="105" Grid.Column="2" Height="33" Click="ButtonDelete_Click"/>
+        <Button x:Name="ButtonRegisterPatient" Content="Új beteg rögzítése" HorizontalAlignment="Left" Height="33" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="124" Click="RegisterPatient_Click"/>
+        <Button x:Name="ButtonRefresh" Content="Lista frissítése" Grid.Column="2" HorizontalAlignment="Left" Margin="10,0,0,10" Width="100" Height="33" VerticalAlignment="Bottom" Click="ButtonRefresh_Click"/>
+        <Button x:Name="ButtonAdmission" Content="Új beutaló küldése" Grid.Column="1" HorizontalAlignment="Right" Height="33" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="124" Click="ButtonAdmission_Click"/>
+        <Button x:Name="ButtonDelete" Content="Beteg törlése" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="105" Grid.Column="2" Height="33" Click="ButtonDelete_Click"/>
     </Grid>
 </Window>

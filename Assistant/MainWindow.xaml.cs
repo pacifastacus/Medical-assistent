@@ -32,14 +32,30 @@ namespace Assistant
         }
         private void RegisterPatient_Click(object sender, RoutedEventArgs e)
         {
-            RefreshList();
+            int? insuranceNumber;
+            if(!UserInputControl.InsuranceNumToInt(TextInsuranceNumber.Text, out insuranceNumber))
+            {
+                MessageBox.Show("TAJ-szám helytelen!");
+                return;
+            }
+            TextLastName.Text = TextLastName.Text.Trim();
+            if (!UserInputControl.CheckName(TextLastName.Text))
+            {
+                MessageBox.Show("Vezetéknév hibásan lett kitöltve!");
+            }
+            TextFirstName.Text = TextFirstName.Text.Trim();
+            if (!UserInputControl.CheckName(TextFirstName.Text))
+            {
+                MessageBox.Show("Keresztnév hibásan lett kitöltve!");
+            }
+
             patient = new Patient
             {
                 FirstName = TextFirstName.Text,
                 LastName = TextLastName.Text,
                 dateOfBirth = DatePickerBirth.SelectedDate,
                 Address = TextAddress.Text,
-                InsuranceNumber = UserInputControll.InsuranceNumToInt(TextInsuranceNumber.Text),
+                InsuranceNumber = insuranceNumber,
                 ID = -1
             };
             var admission = new Admission
@@ -61,11 +77,11 @@ namespace Assistant
                 var result = HttpClient.PostAsync("http://localhost:8080/assistant/", stringContent);
                 if (result.Result.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Done!\n");
+                    MessageBox.Show("Kész!\n");
                     TextSymptoms.Clear();
                 }
                 else
-                    MessageBox.Show("Error!\n" + result.Result);
+                    MessageBox.Show("Hiba!\n" + result.Result);
             }
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,8 +102,9 @@ namespace Assistant
                 TextLastName.Text = patient.LastName;
                 DatePickerBirth.SelectedDate = patient.dateOfBirth;
                 TextAddress.Text = patient.Address;
-                TextInsuranceNumber.Text = UserInputControll.InsuranceNumToString(patient.InsuranceNumber);
+                TextInsuranceNumber.Text = UserInputControl.InsuranceNumToString(patient.InsuranceNumber);
             }
+            TextSymptoms.Clear();
         }
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
@@ -109,7 +126,7 @@ namespace Assistant
         {
             if(patient is null)
             {
-                MessageBox.Show("Choose patient!");
+                MessageBox.Show("Válasszon beteget a listából!");
                 return;
             }
             var admission = new Admission
@@ -126,11 +143,11 @@ namespace Assistant
                 var result = HttpClient.PostAsync("http://localhost:8080/assistant/"+patient.ID, stringContent);
                 if (result.Result.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Done!\n");
+                    MessageBox.Show("Kész!\n");
                     TextSymptoms.Clear();
                 }
                 else
-                    MessageBox.Show("Error!\n" + result.Result);
+                    MessageBox.Show("Hiba!\n" + result.Result);
             }
         }
 
@@ -138,12 +155,12 @@ namespace Assistant
         {
             if (patient is null)
             {
-                MessageBox.Show("Choose patient!");
+                MessageBox.Show("Válasszon beteget a listából!");
                 return;
             }
-            if (MessageBox.Show("Do you want to delet\n" +
+            if (MessageBox.Show("Biztos törli?\n" +
                 patient.FirstName + " " + patient.LastName + "\n" +
-                "Insurance number: " + patient.InsuranceNumber + "?", "Waraning", MessageBoxButton.YesNo) ==
+                "Insurance number: " + patient.InsuranceNumber, "Figyelem!", MessageBoxButton.YesNo) ==
                 MessageBoxResult.No)
             {
                 return;
@@ -153,7 +170,7 @@ namespace Assistant
             {
                 var result = httpClient.DeleteAsync("http://localhost:8080/assistant/" + patient.ID).Result;
                 if (!result.IsSuccessStatusCode)
-                    MessageBox.Show("Deletion failed!\n"+result.StatusCode);
+                    MessageBox.Show("Törlés sikertelen!\n"+result.StatusCode);
                 else
                     RefreshList();
             }

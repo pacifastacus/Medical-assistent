@@ -2,35 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Assistant
 {
-    class UserInputControll
+    class UserInputControl
     {
         public const string InsuranceNumberMissing = "Not recorded";
         public const string InsuranceNumberInvalid = "Invalid";
-        public static int InsuranceNumToInt(string insNum)
+        public static bool InsuranceNumToInt(string insNum, out int? retVal)
         {
-            if (insNum.Contains("-"))
+            insNum = insNum.Trim();
+            if (Regex.IsMatch(insNum, "^([0-9]{3}-){2}[0-9]{3}$"))
             {
                 string tmp = "";
                 foreach (var substr in insNum.Split('-'))
                 {
                     tmp += substr;
                 }
-                insNum = tmp;
+                retVal = int.Parse(tmp);
+                return true;
             }
-            if (insNum.Equals(InsuranceNumberMissing))
+            else if (Regex.IsMatch(insNum, "^[0-9]{9}$"))
             {
-                return -1;
+                retVal = int.Parse(insNum);
+                return true;
             }
-            if (insNum.Equals(InsuranceNumberInvalid))
+            else
             {
-                return -2;
+                retVal = null;
+                return false;
             }
-
-            return int.Parse(insNum);
         }
 
         public static string InsuranceNumToString(int? insNum)
@@ -50,6 +53,11 @@ namespace Assistant
                 token[i] = str.Substring(i * 3, 3);
             }
             return token[0] + "-" + token[1] + "-" + token[2];
+        }
+
+        public static bool CheckName(string name)
+        {
+            return Regex.IsMatch(name, "^[A-ZÓÚÖÜŐŰ][a-zóúöüőű']*(-[A-ZÓÚÖÜŐŰ][a-zóúöüőű']*)*$");
         }
     }
 }
