@@ -86,7 +86,8 @@ namespace Doctor
 
             using (var httpClient = new HttpClient())
             {
-                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/"+record.ID);
+                var result = httpClient.DeleteAsync("http://localhost:8080/doctor/"+record.ID).Result;
+
             }
             this.Close();
         }

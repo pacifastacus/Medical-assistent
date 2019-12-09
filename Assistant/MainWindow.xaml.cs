@@ -30,11 +30,6 @@ namespace Assistant
             InitializeComponent();
             RefreshList();
         }
-
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
         private void RegisterPatient_Click(object sender, RoutedEventArgs e)
         {
             RefreshList();
@@ -44,7 +39,7 @@ namespace Assistant
                 LastName = TextLastName.Text,
                 dateOfBirth = DatePickerBirth.SelectedDate,
                 Address = TextAddress.Text,
-                InsuranceNumber = int.Parse(TextInsuranceNumber.Text),
+                InsuranceNumber = UserInputControll.InsuranceNumToInt(TextInsuranceNumber.Text),
                 ID = -1
             };
             var admission = new Admission
@@ -65,20 +60,34 @@ namespace Assistant
             {
                 var result = HttpClient.PostAsync("http://localhost:8080/assistant/", stringContent);
                 if (result.Result.IsSuccessStatusCode)
+                {
                     MessageBox.Show("Done!\n");
+                    TextSymptoms.Clear();
+                }
                 else
                     MessageBox.Show("Error!\n" + result.Result);
             }
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Patient patient = (Patient) PatientsList.SelectedItem;
+            Patient patient = (Patient)PatientsList.SelectedItem;
             this.patient = patient;
-            TextFirstName.Text = patient.FirstName;
-            TextLastName.Text = patient.LastName;
-            DatePickerBirth.SelectedDate = patient.dateOfBirth;
-            TextAddress.Text = patient.Address;
-            TextInsuranceNumber.Text = UserInputControll.InsuranceNumToString(patient.InsuranceNumber);  //TODO format Insurance number
+            if (patient is null)
+            {
+                TextFirstName.Clear();
+                TextLastName.Clear();
+                DatePickerBirth.SelectedDate = DateTime.Now;
+                TextAddress.Clear();
+                TextInsuranceNumber.Clear();
+            }
+            else
+            { 
+                TextFirstName.Text = patient.FirstName;
+                TextLastName.Text = patient.LastName;
+                DatePickerBirth.SelectedDate = patient.dateOfBirth;
+                TextAddress.Text = patient.Address;
+                TextInsuranceNumber.Text = UserInputControll.InsuranceNumToString(patient.InsuranceNumber);
+            }
         }
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
@@ -116,9 +125,37 @@ namespace Assistant
             {
                 var result = HttpClient.PostAsync("http://localhost:8080/assistant/"+patient.ID, stringContent);
                 if (result.Result.IsSuccessStatusCode)
+                {
                     MessageBox.Show("Done!\n");
+                    TextSymptoms.Clear();
+                }
                 else
                     MessageBox.Show("Error!\n" + result.Result);
+            }
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (patient is null)
+            {
+                MessageBox.Show("Choose patient!");
+                return;
+            }
+            if (MessageBox.Show("Do you want to delet\n" +
+                patient.FirstName + " " + patient.LastName + "\n" +
+                "Insurance number: " + patient.InsuranceNumber + "?", "Waraning", MessageBoxButton.YesNo) ==
+                MessageBoxResult.No)
+            {
+                return;
+            }
+
+            using (var httpClient = new HttpClient())
+            {
+                var result = httpClient.DeleteAsync("http://localhost:8080/assistant/" + patient.ID).Result;
+                if (!result.IsSuccessStatusCode)
+                    MessageBox.Show("Deletion failed!\n"+result.StatusCode);
+                else
+                    RefreshList();
             }
         }
     }
